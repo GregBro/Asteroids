@@ -3,6 +3,9 @@ extends RigidBody2D
 var laser_scene : PackedScene = preload("res://scenes/laser.tscn")
 var explosion_scene : PackedScene = preload("res://scenes/explosion_1.tscn")
 
+enum States {PLAYING, HIDING}
+var shipStatus = States.PLAYING
+
 var can_laser : bool = true
 var screensize 
 var rotation_speed = 2
@@ -13,6 +16,7 @@ var hit_points : int = 3
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screensize = get_viewport_rect().size
+	shipStatus = States.PLAYING
 	hit_points = 2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -79,33 +83,37 @@ func _on_body_entered(body):
 			lose_ship()
 	
 func lose_ship() :
-	$CollisionShape2D.set_disabled(true)
+	shipStatus = States.HIDING
+	var last_position = position
+	position.x = -200
 	hide()
 	Globals.update_ship_count(-1)
 	$"../UserInterface/HBoxContainer/ShipCountLabel".text = str(Globals.ships)
 	var explosion =  explosion_scene.instantiate()
-	explosion.position = position
+	explosion.position = last_position
 	$"..".add_child(explosion)
 	explosion.get_node("AnimatedSprite2D").play("explosion1")
 	$RespawnTimer.start()
 	$"../UserInterface/MessageLabel".show()
 
 func _integrate_forces(state):
-	var xform = state.get_transform()
 	
-	if xform.origin.x > screensize.x:
-		xform.origin.x = 0
-		state.set_transform(xform)
-		
-	if xform.origin.x < 0:
-		xform.origin.x = screensize.x 
-		
-	if xform.origin.y > screensize.y:
-		xform.origin.y = 0
+	if shipStatus == States.PLAYING :
+		var xform = state.get_transform()
+		if xform.origin.x > screensize.x:
+			xform.origin.x = 0
+			state.set_transform(xform)
+			
+		if xform.origin.x < 0:
+			xform.origin.x = screensize.x 
+			
+		if xform.origin.y > screensize.y:
+			xform.origin.y = 0
 
-	if xform.origin.y < 0:
-		xform.origin.y = screensize.y 
-	state.set_transform(xform)
+		if xform.origin.y < 0:
+			xform.origin.y = screensize.y 
+
+		state.set_transform(xform)
 	
 
 func _on_laser_timer_timeout():
@@ -113,11 +121,11 @@ func _on_laser_timer_timeout():
 
 
 func _on_respawn_timer_timeout():
-	global_position.x = screensize.x /2
-	global_position.y = screensize.y /2
+	position.x = screensize.x /2
+	position.y = screensize.y /2
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
 	hit_points = 3
 	$"../UserInterface/MessageLabel".hide()
 	show()
-	$CollisionShape2D.set_disabled(false)
+	

@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlnug3u81xf7s"]
-
-[ext_resource type="Script" path="res://scenes/Asteroid.gd" id="1_6dfq3"]
+[gd_scene load_steps=2 format=3 uid="uid://dlnug3u81xf7s"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bmss2"]
 
 [node name="Asteroid" type="RigidBody2D" groups=["Asteroids"]]
+collision_layer = 2
+collision_mask = 5
 mass = 0.01
 physics_material_override = SubResource("PhysicsMaterial_bmss2")
 gravity_scale = 0.0
-script = ExtResource("1_6dfq3")
+angular_velocity = -0.0349066

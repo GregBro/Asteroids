@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://ohhsx8pqey3n"]
+
+[ext_resource type="Texture2D" uid="uid://bm8735fqw4jt0" path="res://art/asteroid_hit_1.png" id="1_rqltr"]
+[ext_resource type="Texture2D" uid="uid://mqqvq2ooyyug" path="res://art/asteroid_hit_2.png" id="2_gbmtc"]
+[ext_resource type="Texture2D" uid="uid://bgvp4keu60kll" path="res://art/asteroid_hit_3.png" id="3_ootcd"]
+[ext_resource type="Texture2D" uid="uid://d22ss0k3a776u" path="res://art/asteroid_hit_4.png" id="4_430np"]
+[ext_resource type="Script" path="res://scenes/asteroid_hit_animation.gd" id="5_7a3dl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q731x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rqltr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gbmtc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ootcd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_430np")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 20.0
+}]
+
+[node name="AsteroidHitAnimation" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_q731x")
+animation = &"hit"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("5_7a3dl")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

@@ -1,10 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://xpjqopa2kj7v"]
+[gd_scene load_steps=5 format=3 uid="uid://xpjqopa2kj7v"]
 
 [ext_resource type="Texture2D" uid="uid://cnxmivfrg3nwt" path="res://art/large/a10000.png" id="1_e4iio"]
 [ext_resource type="Script" path="res://scenes/asteroid_large.gd" id="1_y6krk"]
-[ext_resource type="Texture2D" uid="uid://bhgf3pvsox0oi" path="res://art/large/a10001.png" id="2_53i0f"]
-[ext_resource type="Texture2D" uid="uid://dbpymx67fvlk" path="res://art/large/a10003.png" id="3_t4q0h"]
-[ext_resource type="Texture2D" uid="uid://p86tjska2ifv" path="res://art/large/a10004.png" id="4_8re4s"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_id13o"]
 friction = 0.0
@@ -12,41 +9,6 @@ bounce = 0.32
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_24cq5"]
 radius = 68.1836
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_xjhoo"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_e4iio")
-}],
-"loop": true,
-"name": &"white1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_53i0f")
-}],
-"loop": true,
-"name": &"white2",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_t4q0h")
-}],
-"loop": true,
-"name": &"white3",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_8re4s")
-}],
-"loop": true,
-"name": &"white4",
-"speed": 5.0
-}]
 
 [node name="AsteroidLargeWhite1" type="RigidBody2D"]
 collision_layer = 2
@@ -56,17 +18,10 @@ physics_material_override = SubResource("PhysicsMaterial_id13o")
 gravity_scale = 0.0
 script = ExtResource("1_y6krk")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-6.5, 3.5)
-scale = Vector2(6.85, 6.55)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_24cq5")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_xjhoo")
-animation = &"white1"
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_e4iio")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
