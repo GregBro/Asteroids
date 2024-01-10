@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://bn03xjt5282bj"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_axrvw"]
+[ext_resource type="Texture2D" uid="uid://cgddjqrbqhki2" path="res://art/smallorange.png" id="1_t50b4"]
+[ext_resource type="Texture2D" uid="uid://cb1tgnaoac8b" path="res://art/jet_blast.png" id="3_2o5hv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3b6kj"]
+bounce = 0.2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drd6y"]
+height = 52.0
+
+[node name="Player" type="RigidBody2D" groups=["Lasers"]]
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_3b6kj")
+gravity_scale = 0.0
+max_contacts_reported = 6
+contact_monitor = true
+linear_damp_mode = 1
+linear_damp = 0.2
+angular_damp_mode = 1
+angular_damp = 0.2
+script = ExtResource("1_axrvw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_t50b4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_drd6y")
+
+[node name="ThrustJetLeft" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-32, -4)
+rotation = 3.14159
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2o5hv")
+
+[node name="ThrustJetRight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-32, 4)
+rotation = 3.14159
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2o5hv")
+
+[node name="ReverseJetLeft" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(6, -13)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2o5hv")
+
+[node name="ReverseJetRight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(6, 14)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2o5hv")
+
+[node name="RotateCounterClockFrontJet" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(16, 13)
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2o5hv")
+
+[node name="RotateCounterClockRearJet" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-16, -21)
+rotation = -1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2o5hv")
+
+[node name="RotateClockwiseRearJet" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-16, 21)
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2o5hv")
+
+[node name="RotateClockwiseFrontJet" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(17, -13)
+rotation = -1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_2o5hv")
+
+[node name="LaserTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

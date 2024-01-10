@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhd6a6auaqohd"]
+
+[ext_resource type="Script" path="res://scenes/level.gd" id="1_6idde"]
+[ext_resource type="Texture2D" uid="uid://cy3c6epdx6fo5" path="res://art/DoubleCluster.jpg" id="1_ij2u0"]
+[ext_resource type="PackedScene" uid="uid://bn03xjt5282bj" path="res://scenes/player.tscn" id="2_ctska"]
+
+[sub_resource type="Curve2D" id="Curve2D_3ao1m"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -76, -81, 0, 0, 0, 0, 1446, -85, 0, 0, 0, 0, 1455, 918, 0, 0, 0, 0, -90, 924, 0, 0, 0, 0, -76, -81)
+}
+point_count = 5
+
+[node name="Level" type="Node2D" groups=["Asteroids"]]
+script = ExtResource("1_6idde")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(678, 413)
+scale = Vector2(1.17573, 1.17164)
+texture = ExtResource("1_ij2u0")
+
+[node name="Player" parent="." instance=ExtResource("2_ctska")]
+position = Vector2(698, 427)
+
+[node name="AsteroidPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_3ao1m")
+
+[node name="AsteroidPathFollow2D" type="PathFollow2D" parent="AsteroidPath"]
+position = Vector2(-76, -81)
+rotation = -0.00262811
+
+[node name="AsteroidSpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_asteroid_spawn_timer_timeout"]
