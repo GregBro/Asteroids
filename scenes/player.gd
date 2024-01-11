@@ -91,7 +91,7 @@ func lose_ship() :
 	$"../UserInterface/HBoxContainer/ShipCountLabel".text = str(Globals.ships)
 	var explosion =  explosion_scene.instantiate()
 	explosion.position = last_position
-	$"..".add_child(explosion)
+	get_parent().add_child(explosion)
 	explosion.get_node("AnimatedSprite2D").play("explosion1")
 	$RespawnTimer.start()
 	$"../UserInterface/MessageLabel".show()
@@ -121,8 +121,8 @@ func _on_laser_timer_timeout():
 
 
 func _on_respawn_timer_timeout():
-	position.x = screensize.x /2
-	position.y = screensize.y /2
+	global_position.x = screensize.x /2
+	global_position.y = screensize.y /2
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
 	hit_points = 3
