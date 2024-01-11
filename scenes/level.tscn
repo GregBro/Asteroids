@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhd6a6auaqohd"]
+[gd_scene load_steps=5 format=3 uid="uid://dhd6a6auaqohd"]
 
 [ext_resource type="Script" path="res://scenes/level.gd" id="1_6idde"]
-[ext_resource type="PackedScene" uid="uid://bn03xjt5282bj" path="res://scenes/player.tscn" id="2_ctska"]
 [ext_resource type="PackedScene" uid="uid://du16h7w8cu6rg" path="res://scenes/user_interface.tscn" id="4_saxq1"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i6bph"]
@@ -21,9 +20,6 @@ position = Vector2(678, 413)
 scale = Vector2(1.17573, 1.17164)
 texture = SubResource("CompressedTexture2D_i6bph")
 
-[node name="Player" parent="." instance=ExtResource("2_ctska")]
-position = Vector2(698, 427)
-
 [node name="AsteroidPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_3ao1m")
 
@@ -36,4 +32,7 @@ autostart = true
 
 [node name="UserInterface" parent="." instance=ExtResource("4_saxq1")]
 
+[node name="NextLevelTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_asteroid_spawn_timer_timeout"]
+[connection signal="timeout" from="NextLevelTimer" to="." method="_on_next_level_timer_timeout"]

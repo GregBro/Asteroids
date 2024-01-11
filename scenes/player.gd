@@ -18,6 +18,8 @@ func _ready():
 	screensize = get_viewport_rect().size
 	shipStatus = States.PLAYING
 	hit_points = 2
+	position = Vector2(screensize.x/2, screensize.y/2)
+	show()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -87,8 +89,7 @@ func lose_ship() :
 	var last_position = position
 	position.x = -200
 	hide()
-	Globals.update_ship_count(-1)
-	$"../UserInterface/HBoxContainer/ShipCountLabel".text = str(Globals.ships)
+	Globals.ships -= 1
 	var explosion =  explosion_scene.instantiate()
 	explosion.position = last_position
 	get_parent().add_child(explosion)

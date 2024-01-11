@@ -24,8 +24,7 @@ var hit_offset = -50
 
 func hit(_laser_position, laser_direction) :
 	hit_points -= 1
-	Globals.update_score(1)
-	get_parent().get_node("UserInterface").update_score() 
+	Globals.score += 1
 	var asteroid_hit = asteroid_hit_scene.instantiate()
 	asteroid_hit.position =  (laser_direction.normalized() * hit_offset) 
 	add_child(asteroid_hit)
