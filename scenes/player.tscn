@@ -10,7 +10,7 @@ bounce = 0.2
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drd6y"]
 height = 52.0
 
-[node name="Player" type="RigidBody2D" groups=["Lasers"]]
+[node name="Player" type="RigidBody2D" groups=["Lasers", "Player"]]
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_3b6kj")
 gravity_scale = 0.0

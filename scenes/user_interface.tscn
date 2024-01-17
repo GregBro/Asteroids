@@ -66,3 +66,14 @@ theme_override_fonts/normal_font = ExtResource("2_507jb")
 theme_override_font_sizes/normal_font_size = 50
 text = "Ready"
 autowrap_mode = 0
+
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="ReadyTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
+[connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]

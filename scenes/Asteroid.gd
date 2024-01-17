@@ -29,11 +29,20 @@ func hit(_laser_position, laser_direction) :
 	asteroid_hit.position =  (laser_direction.normalized() * hit_offset) 
 	add_child(asteroid_hit)
 	asteroid_hit.play("hit")
+	asteroid_hit.animation_finished.connect(deal_with_hit_result)
+
+func deal_with_hit_result() :
 	if hit_points <= 0 :
 		if asteroid_size != Size.SMALL :
 			break_apart()
 		else :
-			queue_free()
+			test_for_last_asteroid()
+			call_deferred("queue_free")
+
+func test_for_last_asteroid() :
+	print("Last asteroid test : " + str(get_tree().get_nodes_in_group("Asteroids").size()))
+	if get_tree().get_nodes_in_group("Asteroids").size() <= 2 :
+		Globals.emit_level_change()
 
 func break_apart():
 	var asteroid_1

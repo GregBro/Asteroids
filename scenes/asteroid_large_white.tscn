@@ -18,10 +18,10 @@ physics_material_override = SubResource("PhysicsMaterial_id13o")
 gravity_scale = 0.0
 script = ExtResource("1_y6krk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_24cq5")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_e4iio")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_24cq5")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
