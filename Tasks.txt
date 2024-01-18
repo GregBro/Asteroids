@@ -1,0 +1,10 @@
+Fix Game Over
+Add Health Bar back
+Fix Level Up
+New Ship every 3 levels
+Add quit and pause menu
+Add weapon upgrades
+helath drops
+level configuration
+overheating on lasers
+

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgvq6iwxl161g"
-path="res://.godot/imported/a10000.png-725555e83abfd0ff3c9a71cd35f8d120.ctex"
+uid="uid://imarlerl1ow4"
+path="res://.godot/imported/milky-way.jpg-d2a0b22a520222d08df24462d480ab32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/medium/a10000.png"
-dest_files=["res://.godot/imported/a10000.png-725555e83abfd0ff3c9a71cd35f8d120.ctex"]
+source_file="res://art/milky-way.jpg"
+dest_files=["res://.godot/imported/milky-way.jpg-d2a0b22a520222d08df24462d480ab32.ctex"]
 
 [params]
 

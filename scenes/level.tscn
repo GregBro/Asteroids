@@ -1,10 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhd6a6auaqohd"]
 
 [ext_resource type="Script" path="res://scenes/level.gd" id="1_6idde"]
+[ext_resource type="Texture2D" uid="uid://imarlerl1ow4" path="res://art/milky-way.jpg" id="2_r56mu"]
 [ext_resource type="PackedScene" uid="uid://du16h7w8cu6rg" path="res://scenes/user_interface.tscn" id="4_saxq1"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i6bph"]
-load_path = "res://.godot/imported/DoubleCluster.jpg-4bad575273a777ea17d157218bfdeb70.ctex"
 
 [sub_resource type="Curve2D" id="Curve2D_3ao1m"]
 _data = {
@@ -16,11 +14,13 @@ point_count = 5
 script = ExtResource("1_6idde")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(678, 413)
+position = Vector2(867, 536)
 scale = Vector2(1.17573, 1.17164)
-texture = SubResource("CompressedTexture2D_i6bph")
+texture = ExtResource("2_r56mu")
 
 [node name="AsteroidPath" type="Path2D" parent="."]
+position = Vector2(74.8544, 62.0763)
+scale = Vector2(1.29838, 1.08325)
 curve = SubResource("Curve2D_3ao1m")
 
 [node name="AsteroidPathFollow2D" type="PathFollow2D" parent="AsteroidPath"]
