@@ -30,9 +30,17 @@ rotation = -0.00262811
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="UserInterface" parent="." instance=ExtResource("4_saxq1")]
-
 [node name="NextLevelTimer" type="Timer" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("4_saxq1")]
+
+[node name="ReadyTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="GameOverTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_asteroid_spawn_timer_timeout"]
 [connection signal="timeout" from="NextLevelTimer" to="." method="_on_next_level_timer_timeout"]
+[connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

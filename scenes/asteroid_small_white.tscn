@@ -1,24 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://8j2rcvu8s2pg"]
+[gd_scene load_steps=4 format=3 uid="uid://c68fvdlixlfau"]
 
 [ext_resource type="Script" path="res://scenes/asteroid_small_white.gd" id="1_7lyt3"]
-[ext_resource type="Texture2D" uid="uid://dj8ik85ln0aqe" path="res://art/small/a10000.png" id="1_herwo"]
+[ext_resource type="Texture2D" uid="uid://deulincwgaihr" path="res://art/small/a10000.png" id="2_rp8ny"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dey2w"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_60ky5"]
+radius = 14.0357
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_eqtdp"]
-radius = 15.0333
-
-[node name="Asteroid_small_white" type="RigidBody2D"]
+[node name="AsteroidSmallWhite" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 5
-physics_material_override = SubResource("PhysicsMaterial_dey2w")
 gravity_scale = 0.0
-linear_damp_mode = 1
-angular_damp_mode = 1
 script = ExtResource("1_7lyt3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_herwo")
+texture = ExtResource("2_rp8ny")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_eqtdp")
+position = Vector2(2, 0)
+shape = SubResource("CircleShape2D_60ky5")

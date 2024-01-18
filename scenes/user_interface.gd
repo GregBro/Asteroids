@@ -1,30 +1,19 @@
 extends CanvasLayer
 
-signal level_change
-
 func _ready():
-	Globals.connect("ship_change", update_ships)
-	Globals.connect("score_change", update_score)
+	$HBoxContainer2/ScoreLabel.text = str(Globals.score_starting_amount)
+	$HBoxContainer/ShipsCountLabel.text = str(Globals.ships_starting_amount)
+	MsgQueue.connect("score_change", score_change)
+	MsgQueue.connect("ship_change", ship_change)
+	MsgQueue.connect("ship_health", ship_health)
+	
+func score_change(score) :
+	$HBoxContainer2/ScoreLabel.text = str(score)
 
-func update_score() :
-	$HBoxContainer2/ScoreAmoutLabel.text = str(Globals.score)
-	#print("Inside update Score Asteroids left : " + str(get_tree().get_nodes_in_group("Asteroids").size()) )
+func ship_change(ships) :
+	#print("Inside UI ship_change. ships : " + str(ships))
+	$HBoxContainer/ShipsCountLabel.text = str(ships )
 
-func update_ships():
-	$HBoxContainer/ShipCountLabel.text = str(Globals.ships)
-
-func game_over() :
-	$MessageLabel.text = "GAME OVER"
-	$MessageLabel.show()
-	$GameOverTimer.start()
-
-
-func _on_game_over_timer_timeout():
-	$MessageLabel.text = "Ready"
-	$MessageLabel.show()
-	$ReadyTimer.start()
-
-
-func _on_ready_timer_timeout():
-	$MessageLabel.hide()
-	get_parent()
+func ship_health(health) :
+	#print("Received Health Signal : " + str(health))
+	$HBoxContainer3/HealthProgressBar.value = health

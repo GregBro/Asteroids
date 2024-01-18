@@ -1,4 +1,4 @@
-extends AsteroidParent
+extends AsteroidBaseClass
 
 func _ready():
 	asteroid_size = Size.MEDIUM

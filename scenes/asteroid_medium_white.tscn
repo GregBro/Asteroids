@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://g0567732ql8x"]
 
-[ext_resource type="Texture2D" uid="uid://ckrc5klajd6hd" path="res://art/medium/a10000.png" id="1_5w8jo"]
 [ext_resource type="Script" path="res://scenes/asteroid_medium_white.gd" id="1_8h68e"]
+[ext_resource type="Texture2D" uid="uid://dgvq6iwxl161g" path="res://art/medium/a10000.png" id="2_mfnh3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m6r20"]
 
@@ -22,4 +22,4 @@ script = ExtResource("1_8h68e")
 shape = SubResource("CircleShape2D_nrnan")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_5w8jo")
+texture = ExtResource("2_mfnh3")

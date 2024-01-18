@@ -1,30 +1,58 @@
 extends Node2D
 
 var asteroid_scene_1 : PackedScene = preload("res://scenes/asteroid_large_white.tscn")
-var asteroid_scene_2 : PackedScene = preload("res://scenes/asteroid_small_white.tscn")
+var asteroid_medium_scene : PackedScene = preload("res://scenes/asteroid_medium_white.tscn")
+var asteroid_small_scene : PackedScene = preload("res://scenes/asteroid_small_white.tscn")
 var player_scene : PackedScene = preload("res://scenes/player.tscn")
+var laser_scene : PackedScene = preload("res://scenes/laser.tscn")
+var asteroid_hit_scene : PackedScene = preload("res://scenes/asteroid_hit_animation.tscn")
 
-var asteroidCount = 4
+var starting_asteroid_count = 4
+var asteroidCount
+
+var screensize 
 
 func _ready():
+	screensize = get_viewport_rect().size
 	setup_game()
+	MsgQueue.connect("fire_laser", fire_laser)
+	MsgQueue.connect("asteroid_hit", asteroid_hit)
+	MsgQueue.connect("asteroid_breakup", asteroid_breakup)
+	MsgQueue.connect("lose_ship", lose_ship)
+	MsgQueue.connect("rebuild_asteroids", start_asteroid_spawn_timer)
+	Globals.ships = Globals.ships_starting_amount
 
 func setup_game() :
+	asteroidCount = starting_asteroid_count
 	build_player()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	Globals.connect("level_change", next_level)
-	Globals.connect("ship_change", check_for_game_over)
-	Globals.ships = Globals.ships_starting_amount
-	Globals.score = 0
+	#Globals.connect("level_change", next_level)
+	#Globals.connect("ship_change", check_for_game_over)
+	#Globals.ships = Globals.ships_starting_amount
+	#Globals.score = 0
 
 func _on_asteroid_spawn_timer_timeout():
-	build_asteroids()
+	print("Building Asteroid")
+	build_asteroid()
 
-func build_asteroids() :
+func start_asteroid_spawn_timer() :
+	asteroidCount = starting_asteroid_count
+	print("Starting Asteroid timer")
+	$AsteroidSpawnTimer.start()
+
+func build_player() :
+	#print("build_player")
+	var player_node = player_scene.instantiate()
+	player_node.position = Vector2(screensize.x/2, screensize.y/2)
+	add_child(player_node)
+	player_node.add_to_group("Player")
+	Globals.ship_health = 3
+	#return player_node
+	
+func build_asteroid() :
 	if(asteroidCount >0) :
 		asteroidCount -= 1
 		var asteroid = asteroid_scene_1.instantiate()
-		#var asteroid = Globals.build_small_asteroid()
 		var asteroid_spawn_location = get_node("AsteroidPath/AsteroidPathFollow2D")
 		asteroid_spawn_location.progress_ratio = randf()
 		var direction = asteroid_spawn_location.rotation + PI / 2
@@ -38,51 +66,91 @@ func build_asteroids() :
 		# Choose the velocity for the mob.
 		var velocity = Vector2(randf_range(120.0, 100.0), 0.0)
 		asteroid.linear_velocity = velocity.rotated(direction)
-		#asteroid.speed_x = velocity.x
-		#asteroid.speed_y = velocity.y
-		#print("Before adding to group Asteroids left : " + str(get_tree().get_nodes_in_group("Asteroids").size()) )
 		asteroid.add_to_group("Asteroids")
-		# Spawn the mob by adding it to the Main scene.
 		add_child(asteroid)
-		#print("Asteroids left : " + str(get_tree().get_nodes_in_group("Asteroids").size()) )
 		
 	else :
 		$AsteroidSpawnTimer.stop()
 
-func build_player() :
-	#print("build_player")
-	var player_node = player_scene.instantiate()
-	add_child(player_node)
-	return player_node
+func fire_laser(player_pos,player_direction):
+	var laser = laser_scene.instantiate()
+	laser.rotation_degrees = rad_to_deg(player_direction) 
+	laser.direction = Vector2.RIGHT.rotated(player_direction)
+	laser.position = player_pos + (laser.direction * 50)
+	laser.add_to_group("Lasers")
+	add_child(laser)
 
-func next_level():
-	print("Inside $Level.next_level()")
-	#$Player.queue_free()
-	$MessageLabel.text = "Next Level"
-	$MessageLabel.show()
-	Globals.level += 1
-	if Globals.level%3 == 0 :
-		Globals.ships += 1
+func asteroid_hit(asteroid_position) :
+	#print("Asteroid Hit position : " + str(asteroid_position)) 
+	var asteroid_hit_instance = asteroid_hit_scene.instantiate()
+	asteroid_hit_instance.position = asteroid_position
+	asteroid_hit_instance.show()
+	asteroid_hit_instance.play()
+	add_child(asteroid_hit_instance)
+	MsgQueue.send_score_change(10)
 	
-	$NextLevelTimer.start()
+func asteroid_breakup(asteroid_position, direction, size) :
+	#print("Got to Asteroid breakup in main")
+	#print("Asteroid size is " + str(size))
+	
+	var asteroid_1
+	var asteroid_2
+	# A large asteroid broke up
+	if size == 0 :
+		asteroid_1 = asteroid_medium_scene.instantiate()
+		asteroid_2 = asteroid_medium_scene.instantiate()
+	elif size == 1 :
+		asteroid_1 = asteroid_small_scene.instantiate()
+		asteroid_2 = asteroid_small_scene.instantiate()
+	else:
+		var asteroids = get_tree().get_nodes_in_group("Asteroids")
+		print("In Asteroid Breakup Asteroid count : " + str(asteroids.size()))
+		return
 
+	asteroid_1.position = asteroid_position	- Vector2(25,25)
+	asteroid_2.position = asteroid_position	+ Vector2(25,25)	
+	asteroid_1.linear_velocity = direction.rotated(-0.25) 
+	asteroid_2.linear_velocity = direction.rotated(0.25) 
 
-func _on_next_level_timer_timeout():
-	$MessageLabel.hide()
-	build_player()
-	build_asteroids()
+	asteroid_1.add_to_group("Asteroids")
+	asteroid_2.add_to_group("Asteroids")
 
-func check_for_game_over() :
+	asteroid_1.show()
+	asteroid_2.show()
+	
+	call_deferred("add_child", asteroid_1)
+	call_deferred("add_child", asteroid_2)
+
+func lose_ship() :
+	var player_array = get_tree().get_nodes_in_group("Player")
+	var player = player_array[0]
+	player.queue_free()
+	
 	if Globals.ships <= 0 :
-		print(" Game Over?")
-		#var player_array = get_tree().get_nodes_in_group("Player")
-		#var player = player_array[0]
-		##get_groups()
-		##player.remove_from_group("Player")
-		#player.queue_free()
-		#var asteroids = get_tree().get_nodes_in_group("Asteroids")
-		#for n in asteroids :
-			#n.remove_from_group("Asteroids")
-			#n.queue_free()
-		#$UserInterface.game_over()
+		lose_game()
+	else :
+		$UI/MsgLabel.text = "Ready"
+		$UI/MsgLabel.show()
+		$ReadyTimer.start()
 
+func lose_game() :
+	print("Game Over Event")
+	$UI/MsgLabel.text = "Game Over"
+	$UI/MsgLabel.show()
+	var asteroid_array = get_tree().get_nodes_in_group("Asteroids")
+	for a in asteroid_array :
+		a.queue_free()
+	$GameOverTimer.start()
+
+func _on_ready_timer_timeout():
+	$UI/MsgLabel.hide()
+	build_player()
+
+
+func _on_game_over_timer_timeout():
+	$UI/MsgLabel.hide()
+	Globals.level = Globals.level_starting_point
+	asteroidCount = starting_asteroid_count
+	Globals.ships = Globals.ships_starting_amount
+	setup_game()
+	$AsteroidSpawnTimer.start()

@@ -4,7 +4,7 @@ Fix Level Up
 New Ship every 3 levels
 Add quit and pause menu
 Add weapon upgrades
-helath drops
+health drops
 level configuration
 overheating on lasers
 
