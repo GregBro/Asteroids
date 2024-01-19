@@ -11,6 +11,7 @@ _data = {
 point_count = 5
 
 [node name="Level" type="Node2D" groups=["Asteroids"]]
+process_mode = 1
 script = ExtResource("1_6idde")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -32,13 +33,13 @@ autostart = true
 
 [node name="NextLevelTimer" type="Timer" parent="."]
 
-[node name="UI" parent="." instance=ExtResource("4_saxq1")]
-
 [node name="ReadyTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
 
 [node name="GameOverTimer" type="Timer" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("4_saxq1")]
 
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_asteroid_spawn_timer_timeout"]
 [connection signal="timeout" from="NextLevelTimer" to="." method="_on_next_level_timer_timeout"]

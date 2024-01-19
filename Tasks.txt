@@ -1,5 +1,6 @@
-Fix Game Over
-Add Health Bar back
+Fix Game Over - DONE
+Add Health Bar back - DONE
+	<ake health bar reset to ship initial health so when we have stronger ships it still works
 Fix Level Up
 New Ship every 3 levels
 Add quit and pause menu
