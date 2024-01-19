@@ -1,9 +1,22 @@
+Bugs:
+	Somtimes asteroids spawn mid-screen
+	Sometimes the last asteroid is lost.
+		If asteroid count down to 2 or less check to see if they are all off screen.
+
+
 Fix Game Over - DONE
 Add Health Bar back - DONE
-	<ake health bar reset to ship initial health so when we have stronger ships it still works
-Fix Level Up
-New Ship every 3 levels
-Add quit and pause menu
+	make health bar reset to ship initial health so when we have stronger ships it still works
+	
+FIRST - refactor to use resources to set a level.
+		Spawn timer, what objects spwn, how many.
+		This will make levels change
+		
+		We could have a hell mode which never stops.
+	
+Fix Level Up - See above
+New Ship every 3 levels - See above
+Add quit and pause menu - would be nice to have first
 Add weapon upgrades
 health drops
 level configuration
