@@ -1,11 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://xpjqopa2kj7v"]
+[gd_scene load_steps=8 format=3 uid="uid://xpjqopa2kj7v"]
 
 [ext_resource type="Script" path="res://scenes/asteroid_large.gd" id="1_y6krk"]
 [ext_resource type="Texture2D" uid="uid://dx728v0mnyf5g" path="res://art/large/a10000.png" id="2_cf86g"]
+[ext_resource type="Texture2D" uid="uid://caswg4rmtqf6v" path="res://art/large/b10000.png" id="3_vcf4c"]
+[ext_resource type="Texture2D" uid="uid://dnchmoxg7mgqs" path="res://art/c10000.png" id="4_3vs03"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_id13o"]
 friction = 0.0
 bounce = 0.32
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fqplb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cf86g")
+}],
+"loop": true,
+"name": &"LargeAs1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_vcf4c")
+}],
+"loop": true,
+"name": &"LargeAs2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3vs03")
+}],
+"loop": false,
+"name": &"LargeAs3",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_24cq5"]
 radius = 68.1836
@@ -18,8 +47,10 @@ physics_material_override = SubResource("PhysicsMaterial_id13o")
 gravity_scale = 0.0
 script = ExtResource("1_y6krk")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_cf86g")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-5, 4)
+sprite_frames = SubResource("SpriteFrames_fqplb")
+animation = &"LargeAs3"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_24cq5")

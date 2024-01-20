@@ -1,12 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://g0567732ql8x"]
+[gd_scene load_steps=8 format=3 uid="uid://g0567732ql8x"]
 
 [ext_resource type="Script" path="res://scenes/asteroid_medium_white.gd" id="1_8h68e"]
 [ext_resource type="Texture2D" uid="uid://dgvq6iwxl161g" path="res://art/medium/a10000.png" id="2_mfnh3"]
+[ext_resource type="Texture2D" uid="uid://dfap1beo57svq" path="res://art/medium/b40000.png" id="3_tvhq5"]
+[ext_resource type="Texture2D" uid="uid://bpn3pchxwpuqa" path="res://art/medium/c10000.png" id="4_hfuqw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m6r20"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nrnan"]
 radius = 28.0713
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f1w5c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mfnh3")
+}],
+"loop": true,
+"name": &"MediumAs1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tvhq5")
+}],
+"loop": true,
+"name": &"MediumAs2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_hfuqw")
+}],
+"loop": true,
+"name": &"MediumAs3",
+"speed": 5.0
+}]
 
 [node name="Asteroid_Medium_White" type="RigidBody2D"]
 collision_layer = 2
@@ -21,5 +50,6 @@ script = ExtResource("1_8h68e")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_nrnan")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_mfnh3")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_f1w5c")
+animation = &"MediumAs3"

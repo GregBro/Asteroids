@@ -1,0 +1,34 @@
+[
+ {
+   "Level": 1,
+   "LargeAsteroidCount": 4,
+   "MediumAsteroidCount": 2,
+   "SmallAsteroidCount": 1,
+   "AsteroidSpawnTime": 4,
+   "ShipsAdded": 0
+ },
+ {
+   "Level": 2,
+   "LargeAsteroidCount": 4,
+   "MediumAsteroidCount": 2,
+   "SmallAsteroidCount": 0,
+   "AsteroidSpawnTime": 3,
+   "ShipsAdded": 0
+ },
+ {
+   "Level": 3,
+   "LargeAsteroidCount": 3,
+   "MediumAsteroidCount": 4,
+   "SmallAsteroidCount": 4,
+   "AsteroidSpawnTime": 2,
+   "ShipsAdded": 1
+ },
+ {
+   "Level": 4,
+   "LargeAsteroidCount": 15,
+   "MediumAsteroidCount": 0,
+   "SmallAsteroidCount": 0,
+   "AsteroidSpawnTime": 0.5,
+   "ShipsAdded": 0
+ }
+]

@@ -1,30 +1,46 @@
 extends Node2D
 
-var asteroid_scene_1 : PackedScene = preload("res://scenes/asteroid_large_white.tscn")
+var asteroid_large_scene : PackedScene = preload("res://scenes/asteroid_large_white.tscn")
 var asteroid_medium_scene : PackedScene = preload("res://scenes/asteroid_medium_white.tscn")
 var asteroid_small_scene : PackedScene = preload("res://scenes/asteroid_small_white.tscn")
 var player_scene : PackedScene = preload("res://scenes/player.tscn")
 var laser_scene : PackedScene = preload("res://scenes/laser.tscn")
 var asteroid_hit_scene : PackedScene = preload("res://scenes/asteroid_hit_animation.tscn")
 
+enum asteroid_size  {LARGE,MEDIUM,SMALL}
+var current_asteroid_size_to_build = asteroid_size.LARGE
 var starting_asteroid_count = 4
 var asteroidCount
 
 var screensize 
 
+var level_dictionary
+var level_data
+
 func _ready():
 	screensize = get_viewport_rect().size
-	setup_game()
 	MsgQueue.connect("fire_laser", fire_laser)
 	MsgQueue.connect("asteroid_hit", asteroid_hit)
 	MsgQueue.connect("asteroid_breakup", asteroid_breakup)
 	MsgQueue.connect("lose_ship", lose_ship)
-	MsgQueue.connect("rebuild_asteroids", start_asteroid_spawn_timer)
+	#MsgQueue.connect("rebuild_asteroids", start_asteroid_spawn_timer)
 	Globals.ships = Globals.ships_starting_amount
+	load_level_dictionary()
+	setup_game()
+
+func load_level_dictionary() :
+	var file = "res://data/LevelData.json"
+	var json_as_text = FileAccess.get_file_as_string(file)
+	level_dictionary = JSON.parse_string(json_as_text)
+	#print(level_dictionary)
 
 func setup_game() :
-	asteroidCount = starting_asteroid_count
+	level_data = level_dictionary[Globals.level -1]
+	print(level_data)
+	asteroidCount = level_data.LargeAsteroidCount
+	$AsteroidSpawnTimer.wait_time = level_data.AsteroidSpawnTime
 	build_player()
+	Globals.ships += level_data.ShipsAdded
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#Globals.connect("level_change", next_level)
 	#Globals.connect("ship_change", check_for_game_over)
@@ -32,12 +48,12 @@ func setup_game() :
 	#Globals.score = 0
 
 func _on_asteroid_spawn_timer_timeout():
-	print("Building Asteroid")
+	#print("Building Asteroid")
 	build_asteroid()
 
 func start_asteroid_spawn_timer() :
-	asteroidCount = starting_asteroid_count
-	print("Starting Asteroid timer")
+	#asteroidCount = starting_asteroid_count
+	#print("Starting Asteroid timer")
 	$AsteroidSpawnTimer.start()
 
 func build_player() :
@@ -52,7 +68,17 @@ func build_player() :
 func build_asteroid() :
 	if(asteroidCount >0) :
 		asteroidCount -= 1
-		var asteroid = asteroid_scene_1.instantiate()
+		var asteroid 
+		if(current_asteroid_size_to_build == asteroid_size.LARGE) :
+			asteroid = asteroid_large_scene.instantiate()
+		if(current_asteroid_size_to_build == asteroid_size.MEDIUM) :
+			asteroid = asteroid_medium_scene.instantiate()
+		if(current_asteroid_size_to_build == asteroid_size.SMALL) :
+			asteroid = asteroid_small_scene.instantiate()
+			
+		var sprite_names = asteroid.get_node("Sprite2D").sprite_frames.get_animation_names()
+		print(sprite_names)
+		asteroid.get_node("Sprite2D").play(sprite_names[randi()%sprite_names.size()])
 		var asteroid_spawn_location = get_node("AsteroidPath/AsteroidPathFollow2D")
 		asteroid_spawn_location.progress_ratio = randf()
 		var direction = asteroid_spawn_location.rotation + PI / 2
@@ -63,7 +89,7 @@ func build_asteroid() :
 		direction += randf_range(-PI / 4, PI / 4)
 		asteroid.rotation = direction
 
-		# Choose the velocity for the mob.
+		# Choose the velocity for the asteroid.
 		var velocity = Vector2(randf_range(120.0, 100.0), 0.0)
 		asteroid.linear_velocity = velocity.rotated(direction)
 		asteroid.add_to_group("Asteroids")
@@ -71,6 +97,15 @@ func build_asteroid() :
 		
 	else :
 		$AsteroidSpawnTimer.stop()
+		if current_asteroid_size_to_build == asteroid_size.LARGE :
+			asteroidCount = level_data.MediumAsteroidCount
+			current_asteroid_size_to_build = asteroid_size.MEDIUM
+			$AsteroidSpawnTimer.start()
+		if current_asteroid_size_to_build == asteroid_size.MEDIUM :
+			asteroidCount = level_data.SmallAsteroidCount
+			current_asteroid_size_to_build = asteroid_size.SMALL
+			$AsteroidSpawnTimer.start()
+
 
 func fire_laser(player_pos,player_direction):
 	var laser = laser_scene.instantiate()
