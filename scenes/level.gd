@@ -36,6 +36,7 @@ func load_level_dictionary() :
 
 func setup_game() :
 	level_data = level_dictionary[Globals.level -1]
+	level_data = level_dictionary[3]
 	print(level_data)
 	asteroidCount = level_data.LargeAsteroidCount
 	$AsteroidSpawnTimer.wait_time = level_data.AsteroidSpawnTime
@@ -81,9 +82,12 @@ func build_asteroid() :
 		asteroid.get_node("Sprite2D").play(sprite_names[randi()%sprite_names.size()])
 		var asteroid_spawn_location = get_node("AsteroidPath/AsteroidPathFollow2D")
 		asteroid_spawn_location.progress_ratio = randf()
+		#asteroid_spawn_location.progress_ratio = 0.5
 		var direction = asteroid_spawn_location.rotation + PI / 2
 		# Set the asteroid's position to a random location.
 		asteroid.position = asteroid_spawn_location.position
+		print("screen size " + str(screensize))
+		print("Spawn Location " + str(asteroid.position))
 
 		# Add some randomness to the direction.
 		direction += randf_range(-PI / 4, PI / 4)

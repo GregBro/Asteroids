@@ -6,27 +6,26 @@
 
 [sub_resource type="Curve2D" id="Curve2D_3ao1m"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -76, -81, 0, 0, 0, 0, 1446, -85, 0, 0, 0, 0, 1455, 918, 0, 0, 0, 0, -90, 924, 0, 0, 0, 0, -76, -81)
+"points": PackedVector2Array(0, 0, 0, 0, -148, -140.713, 0, 0, 0, 0, 1989, -138.713, 0, 0, 0, 0, 2002, 1139.29, 0, 0, 0, 0, -144, 1131.29, 0, 0, 0, 0, -147, -113.713, 0, 0, 0, 0, -148, -140.713)
 }
-point_count = 5
+point_count = 6
 
 [node name="Level" type="Node2D" groups=["Asteroids"]]
 process_mode = 1
 script = ExtResource("1_6idde")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(867, 536)
+position = Vector2(939, 516)
 scale = Vector2(1.17573, 1.17164)
 texture = ExtResource("2_r56mu")
 
 [node name="AsteroidPath" type="Path2D" parent="."]
-position = Vector2(74.8544, 62.0763)
-scale = Vector2(1.29838, 1.08325)
+position = Vector2(39, 27.7126)
 curve = SubResource("Curve2D_3ao1m")
 
 [node name="AsteroidPathFollow2D" type="PathFollow2D" parent="AsteroidPath"]
-position = Vector2(-76, -81)
-rotation = -0.00262811
+position = Vector2(-148, -140.713)
+rotation = 0.000935891
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
 autostart = true
