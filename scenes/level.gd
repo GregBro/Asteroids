@@ -73,11 +73,11 @@ func build_asteroid() :
 			asteroid = asteroid_large_scene.instantiate()
 		if(current_asteroid_size_to_build == asteroid_size.MEDIUM) :
 			asteroid = asteroid_medium_scene.instantiate()
-		if(current_asteroid_size_to_build == asteroid_size.SMALL) :
+		elif(current_asteroid_size_to_build == asteroid_size.SMALL) :
 			asteroid = asteroid_small_scene.instantiate()
 			
 		var sprite_names = asteroid.get_node("Sprite2D").sprite_frames.get_animation_names()
-		print(sprite_names)
+		#print(sprite_names)
 		asteroid.get_node("Sprite2D").play(sprite_names[randi()%sprite_names.size()])
 		var asteroid_spawn_location = get_node("AsteroidPath/AsteroidPathFollow2D")
 		asteroid_spawn_location.progress_ratio = randf()
@@ -101,11 +101,10 @@ func build_asteroid() :
 			asteroidCount = level_data.MediumAsteroidCount
 			current_asteroid_size_to_build = asteroid_size.MEDIUM
 			$AsteroidSpawnTimer.start()
-		if current_asteroid_size_to_build == asteroid_size.MEDIUM :
+		elif  current_asteroid_size_to_build == asteroid_size.MEDIUM :
 			asteroidCount = level_data.SmallAsteroidCount
 			current_asteroid_size_to_build = asteroid_size.SMALL
 			$AsteroidSpawnTimer.start()
-
 
 func fire_laser(player_pos,player_direction):
 	var laser = laser_scene.instantiate()
@@ -185,7 +184,7 @@ func _on_ready_timer_timeout():
 func _on_game_over_timer_timeout():
 	$UI/MsgLabel.hide()
 	Globals.level = Globals.level_starting_point
-	asteroidCount = starting_asteroid_count
+	#asteroidCount = starting_asteroid_count
 	Globals.ships = Globals.ships_starting_amount
 	setup_game()
 	$AsteroidSpawnTimer.start()
