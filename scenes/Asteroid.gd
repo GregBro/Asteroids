@@ -66,10 +66,25 @@ func hit(laser_position) :
 		queue_free()
 		var asteroids = get_tree().get_nodes_in_group("Asteroids")
 		print("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
-		if asteroids.size() == 0 : 
-			print("No More Asteroids")
-			MsgQueue.send_score_change(1000)
-			MsgQueue.send_rebuild_asteroids()
-			Globals.level += 1
+		if asteroids.size() <=2 : 
+			if check_for_lost_asteroids() == false :
+				print("No More Asteroids")
+				MsgQueue.send_score_change(1000)
+				MsgQueue.send_rebuild_asteroids()
+				Globals.level += 1
 			
+func check_for_lost_asteroids():
+	var asteroids = get_tree().get_nodes_in_group("Asteroids")
+	var at_least_1_visible  : bool = false
+	#check each asteroid in the tree to see if they are all non-visible
+	for n in asteroids :
+		if n.position.x > 0	&& n.position.x < screensize.x && n.position.y > 0	&& n.position.y < screensize.y :
+			at_least_1_visible = true
+	
+	if at_least_1_visible == false :
+		print("Cleaning up lost asteroids")
+		for n in asteroids :
+			n.queue_free()
+		
+	return at_least_1_visible
 

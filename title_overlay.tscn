@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://dswme2u08wu4y"]
+
+[ext_resource type="FontFile" uid="uid://dbhogpgfwac0v" path="res://fonts/neuropol x free.ttf" id="1_6p1da"]
+[ext_resource type="Script" path="res://title_overlay.gd" id="1_fqqxi"]
+[ext_resource type="FontFile" uid="uid://jil4hk24nacm" path="res://fonts/nasalization-rg.ttf" id="2_0dgji"]
+[ext_resource type="FontFile" uid="uid://cfnkkwndrpkfv" path="res://fonts/Unutterable-z8E8X.ttf" id="3_qp4jh"]
+
+[sub_resource type="Theme" id="Theme_uk35n"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_1qdcw"]
+
+[node name="TitleOverlay" type="CanvasLayer"]
+script = ExtResource("1_fqqxi")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -365.0
+offset_top = -291.0
+offset_right = 365.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_6p1da")
+theme_override_font_sizes/font_size = 128
+text = "Asteroid
+Attack"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.0
+offset_top = -70.0
+offset_right = 265.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_uk35n")
+
+[node name="NormalDifficultyButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0dgji")
+theme_override_font_sizes/font_size = 50
+button_group = SubResource("ButtonGroup_1qdcw")
+text = "Normal"
+
+[node name="HardDifficultyButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0dgji")
+theme_override_font_sizes/font_size = 50
+button_group = SubResource("ButtonGroup_1qdcw")
+text = "Difficult"
+
+[node name="SeriouslyDifficultyButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0dgji")
+theme_override_font_sizes/font_size = 50
+button_group = SubResource("ButtonGroup_1qdcw")
+text = "Seriously !?"
+
+[node name="HellDifficultyButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.105882, 0, 1)
+theme_override_fonts/font = ExtResource("3_qp4jh")
+theme_override_font_sizes/font_size = 50
+button_group = SubResource("ButtonGroup_1qdcw")
+text = "HELL"
+
+[node name="ExitButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -263.0
+offset_top = -107.0
+offset_right = 267.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_0dgji")
+theme_override_font_sizes/font_size = 50
+text = "Exit Game"

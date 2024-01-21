@@ -1,11 +1,23 @@
 [
  {
+   "Level": 0,
+   "LargeAsteroidCount": 4,
+   "MediumAsteroidCount": 6,
+   "SmallAsteroidCount": 4,
+   "AsteroidSpawnTime": 1.5,
+   "ShipsAdded": 0,
+   "AsteroidTopSpeed" : 120,
+   "PlayerEnabled" : false
+  },
+  {
    "Level": 1,
    "LargeAsteroidCount": 4,
-   "MediumAsteroidCount": 2,
-   "SmallAsteroidCount": 1,
+   "MediumAsteroidCount": 0,
+   "SmallAsteroidCount": 0,
    "AsteroidSpawnTime": 4,
-   "ShipsAdded": 0
+   "ShipsAdded": 0,
+   "AsteroidTopSpeed" : 120,
+   "PlayerEnabled" : true
  },
  {
    "Level": 2,
@@ -13,7 +25,9 @@
    "MediumAsteroidCount": 2,
    "SmallAsteroidCount": 0,
    "AsteroidSpawnTime": 3,
-   "ShipsAdded": 0
+   "ShipsAdded": 0,
+   "AsteroidTopSpeed" : 120,
+   "PlayerEnabled" : true
  },
  {
    "Level": 3,
@@ -21,14 +35,18 @@
    "MediumAsteroidCount": 4,
    "SmallAsteroidCount": 4,
    "AsteroidSpawnTime": 2,
-   "ShipsAdded": 1
+   "ShipsAdded": 1,
+   "AsteroidTopSpeed" : 120,
+   "PlayerEnabled" : true
  },
  {
    "Level": 4,
-   "LargeAsteroidCount": 15,
+   "LargeAsteroidCount": 5,
    "MediumAsteroidCount": 0,
-   "SmallAsteroidCount": 0,
+   "SmallAsteroidCount": 15,
    "AsteroidSpawnTime": 0.5,
-   "ShipsAdded": 0
+   "ShipsAdded": 0,
+   "AsteroidTopSpeed" : 130,
+   "PlayerEnabled" : true
  }
 ]

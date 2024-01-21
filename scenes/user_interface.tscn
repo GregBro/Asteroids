@@ -98,5 +98,13 @@ one_shot = true
 wait_time = 4.0
 one_shot = true
 
+[node name="LevelTest" type="Button" parent="."]
+offset_left = 49.0
+offset_top = 167.0
+offset_right = 134.0
+offset_bottom = 198.0
+text = "Test Level
+"
+
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]

@@ -20,7 +20,6 @@ var level = level_starting_point :
 		return level
 	set(value):
 		level = value
-		check_level()
 
 var ship_health_initial_value = 1
 var ship_health = ship_health_initial_value :
@@ -30,6 +29,3 @@ var ship_health = ship_health_initial_value :
 		ship_health = value
 		MsgQueue.send_ship_health()
 
-func check_level() :
-	if level % 3 == 0 :
-		ships += 1

@@ -12,22 +12,34 @@ var current_asteroid_size_to_build = asteroid_size.LARGE
 var starting_asteroid_count = 4
 var asteroidCount
 
+enum difficulty_enum {NORMAL,HARD,SERIOUSLY,HELL}
+var difficulty : difficulty_enum  = difficulty_enum.NORMAL:
+	get :
+		return difficulty
+	set(value):
+		$TitleOverlay.hide()
+		difficulty = value
+
 var screensize 
 
 var level_dictionary
 var level_data
 
 func _ready():
+	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	screensize = get_viewport_rect().size
 	MsgQueue.connect("fire_laser", fire_laser)
 	MsgQueue.connect("asteroid_hit", asteroid_hit)
 	MsgQueue.connect("asteroid_breakup", asteroid_breakup)
 	MsgQueue.connect("lose_ship", lose_ship)
-	#MsgQueue.connect("rebuild_asteroids", start_asteroid_spawn_timer)
+	MsgQueue.connect("rebuild_asteroids", setup_game)
 	Globals.ships = Globals.ships_starting_amount
 	load_level_dictionary()
-	setup_game()
-
+	level_data = level_dictionary[0]
+	#setup_game()
+	$AsteroidBuilder.buildScene()
+	
+	
 func load_level_dictionary() :
 	var file = "res://data/LevelData.json"
 	var json_as_text = FileAccess.get_file_as_string(file)
@@ -35,27 +47,19 @@ func load_level_dictionary() :
 	#print(level_dictionary)
 
 func setup_game() :
-	level_data = level_dictionary[Globals.level -1]
-	level_data = level_dictionary[3]
-	print(level_data)
-	asteroidCount = level_data.LargeAsteroidCount
-	$AsteroidSpawnTimer.wait_time = level_data.AsteroidSpawnTime
+	var asteroids = get_tree().get_nodes_in_group("Asteroids")
+	for n in asteroids :
+		n.queue_free()	
+	
 	build_player()
+	setup_level()
+	#$AsteroidSpawnTimer.start()
+
+func setup_level() :
+	level_data = level_dictionary[Globals.level ]
+	#level_data = level_dictionary[3]
+	print(level_data)
 	Globals.ships += level_data.ShipsAdded
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	#Globals.connect("level_change", next_level)
-	#Globals.connect("ship_change", check_for_game_over)
-	#Globals.ships = Globals.ships_starting_amount
-	#Globals.score = 0
-
-func _on_asteroid_spawn_timer_timeout():
-	#print("Building Asteroid")
-	build_asteroid()
-
-func start_asteroid_spawn_timer() :
-	#asteroidCount = starting_asteroid_count
-	#print("Starting Asteroid timer")
-	$AsteroidSpawnTimer.start()
 
 func build_player() :
 	#print("build_player")
@@ -66,49 +70,6 @@ func build_player() :
 	Globals.ship_health = 3
 	#return player_node
 	
-func build_asteroid() :
-	if(asteroidCount >0) :
-		asteroidCount -= 1
-		var asteroid 
-		if(current_asteroid_size_to_build == asteroid_size.LARGE) :
-			asteroid = asteroid_large_scene.instantiate()
-		if(current_asteroid_size_to_build == asteroid_size.MEDIUM) :
-			asteroid = asteroid_medium_scene.instantiate()
-		elif(current_asteroid_size_to_build == asteroid_size.SMALL) :
-			asteroid = asteroid_small_scene.instantiate()
-			
-		var sprite_names = asteroid.get_node("Sprite2D").sprite_frames.get_animation_names()
-		#print(sprite_names)
-		asteroid.get_node("Sprite2D").play(sprite_names[randi()%sprite_names.size()])
-		var asteroid_spawn_location = get_node("AsteroidPath/AsteroidPathFollow2D")
-		asteroid_spawn_location.progress_ratio = randf()
-		#asteroid_spawn_location.progress_ratio = 0.5
-		var direction = asteroid_spawn_location.rotation + PI / 2
-		# Set the asteroid's position to a random location.
-		asteroid.position = asteroid_spawn_location.position
-		print("screen size " + str(screensize))
-		print("Spawn Location " + str(asteroid.position))
-
-		# Add some randomness to the direction.
-		direction += randf_range(-PI / 4, PI / 4)
-		asteroid.rotation = direction
-
-		# Choose the velocity for the asteroid.
-		var velocity = Vector2(randf_range(120.0, 100.0), 0.0)
-		asteroid.linear_velocity = velocity.rotated(direction)
-		asteroid.add_to_group("Asteroids")
-		add_child(asteroid)
-		
-	else :
-		$AsteroidSpawnTimer.stop()
-		if current_asteroid_size_to_build == asteroid_size.LARGE :
-			asteroidCount = level_data.MediumAsteroidCount
-			current_asteroid_size_to_build = asteroid_size.MEDIUM
-			$AsteroidSpawnTimer.start()
-		elif  current_asteroid_size_to_build == asteroid_size.MEDIUM :
-			asteroidCount = level_data.SmallAsteroidCount
-			current_asteroid_size_to_build = asteroid_size.SMALL
-			$AsteroidSpawnTimer.start()
 
 func fire_laser(player_pos,player_direction):
 	var laser = laser_scene.instantiate()
@@ -182,8 +143,7 @@ func lose_game() :
 
 func _on_ready_timer_timeout():
 	$UI/MsgLabel.hide()
-	build_player()
-
+	#build_player()
 
 func _on_game_over_timer_timeout():
 	$UI/MsgLabel.hide()
@@ -192,3 +152,6 @@ func _on_game_over_timer_timeout():
 	Globals.ships = Globals.ships_starting_amount
 	setup_game()
 	$AsteroidSpawnTimer.start()
+
+func quit_game() :
+	get_tree().quit()
