@@ -1,8 +1,6 @@
 extends Node2D
 
-var asteroid_large_scene : PackedScene = preload("res://scenes/asteroid_large_white.tscn")
-var asteroid_medium_scene : PackedScene = preload("res://scenes/asteroid_medium_white.tscn")
-var asteroid_small_scene : PackedScene = preload("res://scenes/asteroid_small_white.tscn")
+
 var player_scene : PackedScene = preload("res://scenes/player.tscn")
 var laser_scene : PackedScene = preload("res://scenes/laser.tscn")
 var asteroid_hit_scene : PackedScene = preload("res://scenes/asteroid_hit_animation.tscn")
@@ -30,7 +28,6 @@ func _ready():
 	screensize = get_viewport_rect().size
 	MsgQueue.connect("fire_laser", fire_laser)
 	MsgQueue.connect("asteroid_hit", asteroid_hit)
-	MsgQueue.connect("asteroid_breakup", asteroid_breakup)
 	MsgQueue.connect("lose_ship", lose_ship)
 	MsgQueue.connect("rebuild_asteroids", setup_game)
 	Globals.ships = Globals.ships_starting_amount
@@ -88,37 +85,6 @@ func asteroid_hit(asteroid_position) :
 	add_child(asteroid_hit_instance)
 	MsgQueue.send_score_change(10)
 	
-func asteroid_breakup(asteroid_position, direction, size) :
-	#print("Got to Asteroid breakup in main")
-	#print("Asteroid size is " + str(size))
-	
-	var asteroid_1
-	var asteroid_2
-	# A large asteroid broke up
-	if size == 0 :
-		asteroid_1 = asteroid_medium_scene.instantiate()
-		asteroid_2 = asteroid_medium_scene.instantiate()
-	elif size == 1 :
-		asteroid_1 = asteroid_small_scene.instantiate()
-		asteroid_2 = asteroid_small_scene.instantiate()
-	else:
-		var asteroids = get_tree().get_nodes_in_group("Asteroids")
-		print("In Asteroid Breakup Asteroid count : " + str(asteroids.size()))
-		return
-
-	asteroid_1.position = asteroid_position	- Vector2(25,25)
-	asteroid_2.position = asteroid_position	+ Vector2(25,25)	
-	asteroid_1.linear_velocity = direction.rotated(-0.25) 
-	asteroid_2.linear_velocity = direction.rotated(0.25) 
-
-	asteroid_1.add_to_group("Asteroids")
-	asteroid_2.add_to_group("Asteroids")
-
-	asteroid_1.show()
-	asteroid_2.show()
-	
-	call_deferred("add_child", asteroid_1)
-	call_deferred("add_child", asteroid_2)
 
 func lose_ship() :
 	var player_array = get_tree().get_nodes_in_group("Player")

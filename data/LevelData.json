@@ -2,9 +2,9 @@
  {
    "Level": 0,
    "LargeAsteroidCount": 4,
-   "MediumAsteroidCount": 6,
-   "SmallAsteroidCount": 4,
-   "AsteroidSpawnTime": 1.5,
+   "MediumAsteroidCount": 2,
+   "SmallAsteroidCount": 10,
+   "AsteroidSpawnTime": 1,
    "ShipsAdded": 0,
    "AsteroidTopSpeed" : 120,
    "PlayerEnabled" : false

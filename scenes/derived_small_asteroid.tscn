@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvgwcj46fek6r"]
+
+[ext_resource type="Script" path="res://scenes/derived_small_asteroid.gd" id="1_5lv3k"]
+[ext_resource type="Texture2D" uid="uid://deulincwgaihr" path="res://art/small/a10000.png" id="2_pdqig"]
+[ext_resource type="Texture2D" uid="uid://s5sw3odyrojm" path="res://art/small/b10000.png" id="3_prc4q"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qnuvb"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4w7s4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pdqig")
+}],
+"loop": false,
+"name": &"Small1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_prc4q")
+}],
+"loop": false,
+"name": &"Small2",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sb3ax"]
+radius = 14.1421
+
+[node name="DerivedSmallAsteroid" type="RigidBody2D"]
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_qnuvb")
+gravity_scale = 0.0
+linear_damp_mode = 1
+script = ExtResource("1_5lv3k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4w7s4")
+animation = &"Small2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sb3ax")

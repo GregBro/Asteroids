@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://imarlerl1ow4" path="res://art/milky-way.jpg" id="2_r56mu"]
 [ext_resource type="PackedScene" uid="uid://dswme2u08wu4y" path="res://title_overlay.tscn" id="4_0dy05"]
 [ext_resource type="PackedScene" uid="uid://du16h7w8cu6rg" path="res://scenes/user_interface.tscn" id="4_saxq1"]
-[ext_resource type="PackedScene" uid="uid://pjoocqrbgpf" path="res://asteroid_builder.tscn" id="5_emm2q"]
+[ext_resource type="PackedScene" uid="uid://pjoocqrbgpf" path="res://scenes/asteroid_builder.tscn" id="5_emm2q"]
 [ext_resource type="PackedScene" uid="uid://di1m775mj621j" path="res://pause_overlay.tscn" id="6_e5s08"]
 
 [sub_resource type="Curve2D" id="Curve2D_3ao1m"]
