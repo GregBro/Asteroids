@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://caswg4rmtqf6v" path="res://art/large/b10000.png" id="3_vcf4c"]
 [ext_resource type="Texture2D" uid="uid://dnchmoxg7mgqs" path="res://art/c10000.png" id="4_3vs03"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_id13o"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ggnpe"]
 friction = 0.0
-bounce = 0.32
+bounce = 1.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fqplb"]
 animations = [{
@@ -15,7 +15,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_cf86g")
 }],
-"loop": true,
+"loop": false,
 "name": &"LargeAs1",
 "speed": 5.0
 }, {
@@ -23,7 +23,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_vcf4c")
 }],
-"loop": true,
+"loop": false,
 "name": &"LargeAs2",
 "speed": 5.0
 }, {
@@ -42,9 +42,11 @@ radius = 68.1836
 [node name="AsteroidLargeWhite1" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 7
-mass = 100.0
-physics_material_override = SubResource("PhysicsMaterial_id13o")
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_ggnpe")
 gravity_scale = 0.0
+linear_damp_mode = 1
+angular_damp_mode = 1
 script = ExtResource("1_y6krk")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]

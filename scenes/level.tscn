@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhd6a6auaqohd"]
+[gd_scene load_steps=8 format=3 uid="uid://dhd6a6auaqohd"]
 
 [ext_resource type="Script" path="res://scenes/level.gd" id="1_6idde"]
 [ext_resource type="Texture2D" uid="uid://imarlerl1ow4" path="res://art/milky-way.jpg" id="2_r56mu"]
 [ext_resource type="PackedScene" uid="uid://dswme2u08wu4y" path="res://title_overlay.tscn" id="4_0dy05"]
 [ext_resource type="PackedScene" uid="uid://du16h7w8cu6rg" path="res://scenes/user_interface.tscn" id="4_saxq1"]
 [ext_resource type="PackedScene" uid="uid://pjoocqrbgpf" path="res://asteroid_builder.tscn" id="5_emm2q"]
+[ext_resource type="PackedScene" uid="uid://di1m775mj621j" path="res://pause_overlay.tscn" id="6_e5s08"]
 
 [sub_resource type="Curve2D" id="Curve2D_3ao1m"]
 _data = {
@@ -41,6 +42,9 @@ visible = false
 [node name="TitleOverlay" parent="." instance=ExtResource("4_0dy05")]
 
 [node name="AsteroidBuilder" parent="." instance=ExtResource("5_emm2q")]
+
+[node name="PauseOverlay" parent="." instance=ExtResource("6_e5s08")]
+visible = false
 
 [connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

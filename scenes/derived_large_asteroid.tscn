@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://didexoemt6otd"]
+
+[ext_resource type="Script" path="res://scenes/asteroid.gd" id="1_qsn0c"]
+[ext_resource type="Texture2D" uid="uid://dx728v0mnyf5g" path="res://art/large/a10000.png" id="2_0xrbm"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_48he1"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dag0u"]
+radius = 71.1126
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n5pmt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0xrbm")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DerivedLargeAsteroid" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_48he1")
+gravity_scale = 0.0
+linear_damp_mode = 1
+script = ExtResource("1_qsn0c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 8)
+shape = SubResource("CircleShape2D_dag0u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_n5pmt")

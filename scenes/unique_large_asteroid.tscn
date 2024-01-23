@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgi5pj441dhhu"]
+
+[ext_resource type="Texture2D" uid="uid://dx728v0mnyf5g" path="res://art/large/a10000.png" id="1_d5ggn"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u0jlo"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n6wv0"]
+radius = 69.0652
+
+[node name="UniqueLargeAsteroid" type="RigidBody2D"]
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_u0jlo")
+gravity_scale = 0.0
+linear_damp_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_d5ggn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7, 2)
+shape = SubResource("CircleShape2D_n6wv0")

@@ -6,9 +6,9 @@ enum Size {LARGE,MEDIUM,SMALL}
 
 var asteroid_size = Size.LARGE
 
-var speed_x = -100
-var speed_y = -100
-var rotation_speed = 0.5 + randf()
+#var speed_x = -100
+#var speed_y = -100
+var rotation_speed = 2.5 + randf()
 
 var screensize 
 
@@ -18,12 +18,11 @@ var hit_offset = -50
 func _ready():
 	#print("Parent")
 	screensize = get_viewport_rect().size
-	var rot_direction = 1
-	if (randi()%2 == 0) :
-		rot_direction = -1
-	set_angular_velocity(rotation_speed * rot_direction)
-	asteroid_size = Size.LARGE
-
+	#var rot_direction = 1
+	#if (randi()%2 == 0) :
+		#rot_direction = -1
+	#set_angular_velocity(rotation_speed * rot_direction)
+	
 
 func _integrate_forces(state):
 	var xform = state.get_transform()
@@ -50,41 +49,41 @@ func _integrate_forces(state):
 		xform.origin.y = screensize.y + 70
 
 	state.set_transform(xform)
-	
-func hit(laser_position) :
-	#print("Asteroid_hit in Asteroid Node ")
-	#print("asteroid_size " + str(asteroid_size))	
-	hit_points -= 1
-	#print("hit_points " + str(hit_points))
-	Globals.score =  Globals.score + 10 
-	var hit_position = laser_position #+ (laser_direction.normalized() * hit_offset) 
-	MsgQueue.send_asteroid_hit(hit_position)
-	if hit_points <=0 : 
-		if asteroid_size != Size.SMALL :
-			MsgQueue.send_asteroid_breakup( position, linear_velocity, asteroid_size)
-		remove_from_group("Asteroids")
-		queue_free()
-		var asteroids = get_tree().get_nodes_in_group("Asteroids")
-		print("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
-		if asteroids.size() <=2 : 
-			if check_for_lost_asteroids() == false :
-				print("No More Asteroids")
-				MsgQueue.send_score_change(1000)
-				MsgQueue.send_rebuild_asteroids()
-				Globals.level += 1
-			
-func check_for_lost_asteroids():
-	var asteroids = get_tree().get_nodes_in_group("Asteroids")
-	var at_least_1_visible  : bool = false
-	#check each asteroid in the tree to see if they are all non-visible
-	for n in asteroids :
-		if n.position.x > 0	&& n.position.x < screensize.x && n.position.y > 0	&& n.position.y < screensize.y :
-			at_least_1_visible = true
-	
-	if at_least_1_visible == false :
-		print("Cleaning up lost asteroids")
-		for n in asteroids :
-			n.queue_free()
-		
-	return at_least_1_visible
-
+	#
+#func hit(laser_position) :
+	##print("Asteroid_hit in Asteroid Node ")
+	##print("asteroid_size " + str(asteroid_size))	
+	#hit_points -= 1
+	##print("hit_points " + str(hit_points))
+	#Globals.score =  Globals.score + 10 
+	#var hit_position = laser_position #+ (laser_direction.normalized() * hit_offset) 
+	#MsgQueue.send_asteroid_hit(hit_position)
+	#if hit_points <=0 : 
+		#if asteroid_size != Size.SMALL :
+			#MsgQueue.send_asteroid_breakup( position, linear_velocity, asteroid_size)
+		#remove_from_group("Asteroids")
+		#queue_free()
+		#var asteroids = get_tree().get_nodes_in_group("Asteroids")
+		#print("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
+		#if asteroids.size() <=2 : 
+			#if check_for_lost_asteroids() == false :
+				#print("No More Asteroids")
+				#MsgQueue.send_score_change(1000)
+				#MsgQueue.send_rebuild_asteroids()
+				#Globals.level += 1
+			#
+#func check_for_lost_asteroids():
+	#var asteroids = get_tree().get_nodes_in_group("Asteroids")
+	#var at_least_1_visible  : bool = false
+	##check each asteroid in the tree to see if they are all non-visible
+	#for n in asteroids :
+		#if n.position.x > 0	&& n.position.x < screensize.x && n.position.y > 0	&& n.position.y < screensize.y :
+			#at_least_1_visible = true
+	#
+	#if at_least_1_visible == false :
+		#print("Cleaning up lost asteroids")
+		#for n in asteroids :
+			#n.queue_free()
+		#
+	#return at_least_1_visible
+#

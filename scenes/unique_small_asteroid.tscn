@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlqg5ro2iqw45"]
+
+[ext_resource type="Texture2D" uid="uid://deulincwgaihr" path="res://art/small/a10000.png" id="1_rpket"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6nxrf"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vbwme"]
+radius = 13.9284
+
+[node name="UniqueSmallAsteroid" type="RigidBody2D"]
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_6nxrf")
+gravity_scale = 0.0
+linear_damp_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rpket")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_vbwme")

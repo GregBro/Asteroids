@@ -1,15 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://dlnug3u81xf7s"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bmss2"]
-bounce = 1.0
+[ext_resource type="Script" path="res://scenes/asteroid.gd" id="1_iak61"]
 
 [node name="Asteroid" type="RigidBody2D" groups=["Asteroids"]]
 collision_layer = 2
 collision_mask = 5
-mass = 10.0
-physics_material_override = SubResource("PhysicsMaterial_bmss2")
 gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
 linear_damp_mode = 1
 angular_velocity = -0.0349066
+script = ExtResource("1_iak61")
