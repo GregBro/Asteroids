@@ -64,7 +64,7 @@ func _process(delta):
 		can_laser = false
 		var player_pos = position
 		var player_direction = rotation
-		MsgQueue.send_laser_signal(player_pos, player_direction )
+		MsgQueue.send_fire_laser(player_pos, player_direction )
 
 func _integrate_forces(state):
 	var xform = state.get_transform()
@@ -100,7 +100,6 @@ func _on_body_entered(body):
 			lose_ship()
 		else :
 			$CrashTimer.start()
-		MsgQueue.send_ship_health()
 
 func _on_crash_timer_timeout():
 	can_crash = true

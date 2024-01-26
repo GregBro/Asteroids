@@ -1,29 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://cot1upc1p7r61"]
+[gd_scene load_steps=4 format=3 uid="uid://d4mvyf02mr43c"]
 
-[ext_resource type="Script" path="res://scenes/laser.gd" id="1_67vrr"]
-[ext_resource type="Texture2D" uid="uid://tcqaf1m6o152" path="res://art/laser.png" id="1_x4d6f"]
+[ext_resource type="Texture2D" uid="uid://tcqaf1m6o152" path="res://art/laser.png" id="1_gdu2t"]
+[ext_resource type="Script" path="res://scenes/laser.gd" id="1_rxc3m"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b7li2"]
-height = 40.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wtmqx"]
+height = 36.0
 
 [node name="Laser" type="Area2D"]
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.5, 0.5)
 collision_layer = 4
-collision_mask = 2
-angular_damp_space_override = 3
-script = ExtResource("1_67vrr")
+script = ExtResource("1_rxc3m")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(2, 0)
-scale = Vector2(4.7, 1)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gdu2t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(31, 0)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_b7li2")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_x4d6f")
+shape = SubResource("CapsuleShape2D_wtmqx")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://dufjk11jaw5r7"]
+
+[ext_resource type="Script" path="res://scenes/ui.gd" id="1_a0k4y"]
+[ext_resource type="FontFile" uid="uid://c3uoo7ttyvoro" path="res://fonts/Xolonium-Regular.ttf" id="1_flola"]
+[ext_resource type="Texture2D" uid="uid://7lhebadawuoh" path="res://art/progress.png" id="2_u5lc1"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_a0k4y")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 18.0
+offset_top = 10.0
+offset_right = 136.0
+offset_bottom = 50.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_flola")
+theme_override_font_sizes/font_size = 32
+text = "Ships :"
+
+[node name="ShipsCountLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_flola")
+theme_override_font_sizes/font_size = 32
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -61.0
+offset_top = 10.0
+offset_right = 61.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_flola")
+theme_override_font_sizes/font_size = 32
+text = "Score :"
+
+[node name="ScoreLabel" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_flola")
+theme_override_font_sizes/font_size = 32
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -451.0
+offset_top = 10.0
+offset_right = -19.0
+offset_bottom = 50.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="HBoxContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_flola")
+theme_override_font_sizes/font_size = 32
+text = "Health :"
+
+[node name="HealthProgressBar" type="TextureProgressBar" parent="HBoxContainer3"]
+layout_mode = 2
+max_value = 3.0
+value = 3.0
+texture_progress = ExtResource("2_u5lc1")

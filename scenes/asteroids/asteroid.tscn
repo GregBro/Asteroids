@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj3t2oblujfqw"]
+
+[ext_resource type="Script" path="res://scenes/asteroids/Asteroid.gd" id="1_e1qr6"]
+
+[node name="Asteroid" type="RigidBody2D"]
+collision_mask = 6
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+linear_damp_mode = 1
+script = ExtResource("1_e1qr6")

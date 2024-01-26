@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://buwwjqptgn2r7"]
+[gd_scene load_steps=7 format=3 uid="uid://buwwjqptgn2r7"]
 
 [ext_resource type="Texture2D" uid="uid://imarlerl1ow4" path="res://art/milky-way.jpg" id="1_pilqm"]
 [ext_resource type="Script" path="res://scenes/level.gd" id="1_s66s0"]
 [ext_resource type="PackedScene" uid="uid://cgfh1k04jcopm" path="res://scenes/asteroids/asteroid_builder.tscn" id="3_aaquf"]
 [ext_resource type="PackedScene" uid="uid://qpmvsjimoohg" path="res://scenes/title_overlay.tscn" id="4_pvxrm"]
 [ext_resource type="PackedScene" uid="uid://bpoopf31ie5rm" path="res://scenes/pause_overlay.tscn" id="5_y03no"]
-[ext_resource type="PackedScene" uid="uid://dufjk11jaw5r7" path="res://scenes/ui.tscn" id="6_cbyla"]
 
 [sub_resource type="Curve2D" id="Curve2D_0s43a"]
 _data = {
@@ -33,7 +32,4 @@ rotation = -0.0120418
 [node name="TitleOverlay" parent="." instance=ExtResource("4_pvxrm")]
 
 [node name="PauseOverlay" parent="." instance=ExtResource("5_y03no")]
-visible = false
-
-[node name="UI" parent="." instance=ExtResource("6_cbyla")]
 visible = false

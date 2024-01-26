@@ -1,132 +1,148 @@
-[gd_scene load_steps=11 format=3 uid="uid://bn03xjt5282bj"]
+[gd_scene load_steps=11 format=3 uid="uid://bh3a25v6audft"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_axrvw"]
-[ext_resource type="Texture2D" uid="uid://cgddjqrbqhki2" path="res://art/smallorange.png" id="1_t50b4"]
-[ext_resource type="Texture2D" uid="uid://cb1tgnaoac8b" path="res://art/jet_blast.png" id="3_2o5hv"]
-[ext_resource type="Texture2D" uid="uid://dcx7pdhb4x5ii" path="res://art/jet_blast2.png" id="4_t4cp5"]
-[ext_resource type="Texture2D" uid="uid://b50uwug65df4s" path="res://art/jet_blast3.png" id="5_tv468"]
-[ext_resource type="Texture2D" uid="uid://5143b0sxnyy5" path="res://art/jet_blast4.png" id="6_wxv5d"]
-[ext_resource type="Texture2D" uid="uid://2tc8mho4xms5" path="res://art/jet_blast5.png" id="7_3apx1"]
+[ext_resource type="Texture2D" uid="uid://cgddjqrbqhki2" path="res://art/smallorange.png" id="1_k2dbs"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_rwrkc"]
+[ext_resource type="Texture2D" uid="uid://cb1tgnaoac8b" path="res://art/jet_blast.png" id="3_k1awq"]
+[ext_resource type="Texture2D" uid="uid://dcx7pdhb4x5ii" path="res://art/jet_blast2.png" id="4_epva1"]
+[ext_resource type="Texture2D" uid="uid://b50uwug65df4s" path="res://art/jet_blast3.png" id="5_nrtxm"]
+[ext_resource type="Texture2D" uid="uid://5143b0sxnyy5" path="res://art/jet_blast4.png" id="6_02mrs"]
+[ext_resource type="Texture2D" uid="uid://2tc8mho4xms5" path="res://art/jet_blast5.png" id="7_l5xy4"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3b6kj"]
-bounce = 0.2
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gynqr"]
+friction = 0.0
+bounce = 1.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_y4ogb"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jrigc"]
+radius = 45.0
+height = 172.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_caj8t"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_2o5hv")
+"texture": ExtResource("3_k1awq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_t4cp5")
+"texture": ExtResource("4_epva1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_tv468")
+"texture": ExtResource("5_nrtxm")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_wxv5d")
+"texture": ExtResource("6_02mrs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_3apx1")
+"texture": ExtResource("7_l5xy4")
 }],
 "loop": true,
-"name": &"default",
-"speed": 10.0
+"name": &"jet",
+"speed": 25.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drd6y"]
-radius = 14.0
-height = 68.0
-
-[node name="Player" type="RigidBody2D" groups=["Lasers", "Player"]]
-collision_mask = 2
-mass = 3.0
-physics_material_override = SubResource("PhysicsMaterial_3b6kj")
+[node name="Player" type="RigidBody2D"]
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_gynqr")
 gravity_scale = 0.0
-max_contacts_reported = 3
+max_contacts_reported = 1
 contact_monitor = true
-linear_damp_mode = 1
-angular_damp_mode = 1
-script = ExtResource("1_axrvw")
+script = ExtResource("1_rwrkc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_t50b4")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_k2dbs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_jrigc")
+
+[node name="RotateClockwiseRearJet" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-25, 41)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_caj8t")
+animation = &"jet"
+frame = 2
+frame_progress = 0.761859
+
+[node name="RotateClockwiseFrontJet" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(12, -31)
+rotation = 4.71239
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_caj8t")
+animation = &"jet"
+frame = 1
+frame_progress = 0.684472
+
+[node name="RotateCounterClockFrontJet" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(13, 33)
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_caj8t")
+animation = &"jet"
+frame = 1
+frame_progress = 0.684472
+
+[node name="RotateCounterClockRearJet" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-24, -41)
+rotation = -1.5708
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_caj8t")
+animation = &"jet"
+frame = 1
+frame_progress = 0.684472
+
+[node name="ThrustJetLeft" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-59, -7)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_caj8t")
+animation = &"jet"
+frame = 1
+frame_progress = 0.684472
+
+[node name="ThrustJetRight" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-58, 6)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_caj8t")
+animation = &"jet"
+frame = 1
+frame_progress = 0.684472
+
+[node name="ReverseJetLeft" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(13, -20)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_caj8t")
+animation = &"jet"
+frame = 1
+frame_progress = 0.684472
+
+[node name="ReverseJetRight" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(14, 21)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_caj8t")
+animation = &"jet"
+frame = 1
+frame_progress = 0.684472
 
 [node name="LaserTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
-[node name="RespawnTimer" type="Timer" parent="."]
-wait_time = 4.0
-one_shot = true
-
-[node name="ThrustJetLeft" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(-34, -4)
-rotation = 3.14159
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_y4ogb")
-frame_progress = 0.78778
-
-[node name="ThrustJetRight" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(-34, 4)
-rotation = 3.14159
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_y4ogb")
-frame_progress = 0.911858
-
-[node name="ReverseJetLeft" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(8, -12)
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_y4ogb")
-frame_progress = 0.560436
-
-[node name="ReverseJetRight" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(8, 13)
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_y4ogb")
-
-[node name="RotateClockwiseRearJet" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(-16, 24)
-rotation = 1.5708
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_y4ogb")
-
-[node name="RotateClockwiseFrontJet" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(7, -18)
-rotation = -1.5708
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_y4ogb")
-
-[node name="RotateCounterClockRearJet" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(-15, -24)
-rotation = -1.5708
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_y4ogb")
-
-[node name="RotateCounterClockFrontJet" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(6, 18)
-rotation = 1.5708
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_y4ogb")
-frame_progress = 0.78778
-
 [node name="CrashTimer" type="Timer" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_drd6y")
+wait_time = 0.3
+one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
-[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="CrashTimer" to="." method="_on_crash_timer_timeout"]

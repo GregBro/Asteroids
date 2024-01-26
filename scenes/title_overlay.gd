@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+
 func _ready() :
 	$ExitButton.pressed.connect(self.quit_game)
 	$VBoxContainer/NormalDifficultyButton.pressed.connect(self.set_level_normal)
@@ -22,13 +23,12 @@ func set_level_seriously() :
 func set_level_hell() :
 	get_parent().difficulty = get_parent().difficulty_enum.HELL
 	cleanup_overlay_start_game()
-
+	
 func cleanup_overlay_start_game() :
-	$".".hide()
-	$"../AsteroidBuilder".blow_up_all_asteroids()
-	print("Got here")
+	self.hide()
+	get_parent().get_node("UI").show()
+	get_parent().get_node("AsteroidBuilder").blow_up_all_asteroids()
 	Globals.level += 1
-	#$"../".setup_game()
 	
 func quit_game() :
 	print("Quit")
