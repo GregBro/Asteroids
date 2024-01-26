@@ -107,5 +107,6 @@ func _on_crash_timer_timeout():
 func lose_ship() :
 	#print("In Lose Ships " + str(Globals.ships))
 	Globals.ships = Globals.ships -1
+	queue_free()
 	#print("In Lose Ships after increment" + str(Globals.ships))
 	MsgQueue.send_lose_ship()

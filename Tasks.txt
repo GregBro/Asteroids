@@ -1,5 +1,5 @@
 Bugs:
-	Somtimes asteroids spawn mid-screen
+	Somtimes asteroids spawn mid-screen - FIXED
 	Sometimes the last asteroid is lost.
 		If asteroid count down to 2 or less check to see if they are all off screen.
 	After an asteroid hits a ship the forward and backward jets stop working
@@ -12,18 +12,18 @@ Add Health Bar back - DONE
 	make health bar reset to ship initial health so when we have stronger ships it still works
 	
 FIRST - refactor to use resources to set a level. - Working
-		Spawn timer, what objects spwn, how many.
-		This will make levels change
+		Spawn timer, what objects spwn, how many. - DONE
+		This will make levels change easier
 		
 		We could have a hell mode which never stops.
 	
-Fix Level Up to use data dictionary
+Fix Level Up to use data dictionary 
 
 New Ship every 3 levels -  data dictionary
 
-Add quit and pause menu - would be nice to have soon
+Add quit and pause menu - would be nice to have soon - DONE
 
-start up screen to pick difficulty
+start up screen to pick difficulty - GUI Done, Not functional
 
 Add weapon upgrades
 health drops

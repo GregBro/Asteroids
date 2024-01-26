@@ -56,3 +56,10 @@ var ship_health = ship_health_initial_value :
 		ship_health = value
 		MsgQueue.send_ship_health()
 
+#Used when starting a new game
+func reset_game_data() :
+	ship_health = ship_health_initial_value
+	level = 1
+	level_data = level_dictionary[level]
+	score = score_starting_amount 
+	ships = ships_starting_amount

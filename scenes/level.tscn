@@ -37,3 +37,19 @@ visible = false
 
 [node name="UI" parent="." instance=ExtResource("6_cbyla")]
 visible = false
+
+[node name="ReadyTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="NewGameTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
+[connection signal="timeout" from="NewGameTimer" to="." method="_on_new_game_timer_timeout"]

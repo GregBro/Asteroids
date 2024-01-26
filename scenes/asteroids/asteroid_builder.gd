@@ -21,6 +21,7 @@ func buildScene() :
 	level_data = get_parent().level_data
 	print("Inside asteroidBuilder " )
 	print(level_data)
+	current_asteroid_size_to_build = Globals.AsteroidSize.LARGE
 	asteroidCount = level_data.LargeAsteroidCount
 	$AsteroidSpawnTimer.wait_time = level_data.AsteroidSpawnTime
 	$AsteroidSpawnTimer.start()

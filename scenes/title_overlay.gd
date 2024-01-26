@@ -28,7 +28,7 @@ func cleanup_overlay_start_game() :
 	self.hide()
 	get_parent().get_node("UI").show()
 	get_parent().get_node("AsteroidBuilder").blow_up_all_asteroids()
-	Globals.level += 1
+	get_parent().start_game()
 	
 func quit_game() :
 	print("Quit")
