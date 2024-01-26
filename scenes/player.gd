@@ -5,7 +5,7 @@ var can_crash : bool = true
 var screensize 
 var rotation_speed = 2
 var thrust_speed = 150
-var max_thrust = 150
+var max_velocity = 250
 var max_rotation = 2
 
 func _ready():
@@ -42,19 +42,19 @@ func _process(delta):
 		$RotateCounterClockRearJet.hide()
 	
 	if Input.is_action_pressed("forward") :
-		if linear_velocity.length() < max_thrust :
-			apply_central_impulse(Vector2(cos(rotation), sin(rotation)) * thrust_speed * delta)
-			$ThrustJetLeft.show()
-			$ThrustJetRight.show()
+		apply_central_impulse(Vector2(cos(rotation), sin(rotation)) * thrust_speed * delta)
+		$ThrustJetLeft.show()
+		$ThrustJetRight.show()
+		limit_max_velocity()
 	if Input.is_action_just_released("forward")	:
 		$ThrustJetLeft.hide()
 		$ThrustJetRight.hide()
 	
 	if Input.is_action_pressed("reverse") :
-		if linear_velocity.length() < max_thrust :
-			apply_central_impulse(Vector2(cos(rotation), sin(rotation)) * thrust_speed * delta * -1)
-			$ReverseJetLeft.show()
-			$ReverseJetRight.show()
+		apply_central_impulse(Vector2(cos(rotation), sin(rotation)) * thrust_speed * delta * -1)
+		$ReverseJetLeft.show()
+		$ReverseJetRight.show()
+		limit_max_velocity()
 	if Input.is_action_just_released("reverse")	:
 		$ReverseJetLeft.hide()
 		$ReverseJetRight.hide()			
@@ -100,6 +100,7 @@ func _on_body_entered(body):
 			lose_ship()
 		else :
 			$CrashTimer.start()
+		limit_max_velocity()
 
 func _on_crash_timer_timeout():
 	can_crash = true
@@ -110,3 +111,9 @@ func lose_ship() :
 	queue_free()
 	#print("In Lose Ships after increment" + str(Globals.ships))
 	MsgQueue.send_lose_ship()
+
+func limit_max_velocity() :
+	if linear_velocity.x > max_velocity :
+		linear_velocity.x = max_velocity 
+	if linear_velocity.y > max_velocity :
+		linear_velocity.y = max_velocity 
