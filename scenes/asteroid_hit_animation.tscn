@@ -126,8 +126,7 @@ animations = [{
 [node name="AsteroidHitAnimation" type="AnimatedSprite2D"]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ndb7w")
-frame = 15
-frame_progress = 1.0
 script = ExtResource("2_glhty")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="ready" from="." to="." method="_on_ready"]

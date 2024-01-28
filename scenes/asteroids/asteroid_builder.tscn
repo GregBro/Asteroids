@@ -10,4 +10,9 @@ script = ExtResource("1_qgi3b")
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
 
+[node name="AsteroidBlowupTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="_on_asteroid_spawn_timer_timeout"]
+[connection signal="timeout" from="AsteroidBlowupTimer" to="." method="_on_asteroid_blowup_timer_timeout"]

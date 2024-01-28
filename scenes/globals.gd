@@ -7,12 +7,12 @@ var level_data
 
 var max_level  = 4
 
+enum game_state_enum {TITLE, NEW_GAME, RUNNING, PAUSE, HELL}
+var game_state : game_state_enum = game_state_enum.TITLE
+
 func _ready():
 	load_level_dictionary()
 	level_data = level_dictionary[0]
-
-func set_level(input):
-	level = input
 
 func load_level_dictionary() :
 	var file = "res://data/LevelData.json"

@@ -7,6 +7,7 @@ func _ready() :
 	$VBoxContainer/HardDifficultyButton.pressed.connect(self.set_level_hard)
 	$VBoxContainer/SeriouslyDifficultyButton.pressed.connect(self.set_level_seriously)
 	$VBoxContainer/HellDifficultyButton.pressed.connect(self.set_level_hell)
+	$VBoxContainer/NormalDifficultyButton.grab_focus()
 	
 func set_level_normal() :
 	get_parent().difficulty = get_parent().difficulty_enum.NORMAL
@@ -28,7 +29,14 @@ func cleanup_overlay_start_game() :
 	self.hide()
 	get_parent().get_node("UI").show()
 	get_parent().get_node("AsteroidBuilder").blow_up_all_asteroids()
-	get_parent().start_game()
+	print("level is " + str(Globals.level))
+	print("Game state is " + str(Globals.game_state))
+	Globals.game_state = Globals.game_state_enum.NEW_GAME
+	Globals.level +=1
+	print("After resetting")
+	print("level is " + str(Globals.level))
+	print("Game state is " + str(Globals.game_state))
+	
 	
 func quit_game() :
 	print("Quit")

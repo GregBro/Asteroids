@@ -7,7 +7,7 @@
 [node name="TitleOverlay" type="CanvasLayer"]
 script = ExtResource("1_7xte5")
 
-[node name="Label" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -29,10 +29,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -143.0
-offset_top = -202.0
-offset_right = 144.0
-offset_bottom = -130.0
+offset_left = -282.0
+offset_top = -258.0
+offset_right = 283.0
+offset_bottom = -173.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_62b2h")

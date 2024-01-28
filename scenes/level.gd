@@ -1,5 +1,6 @@
 extends Node2D
 
+
 enum difficulty_enum {NORMAL,HARD,SERIOUSLY,HELL}
 var difficulty : difficulty_enum  = difficulty_enum.NORMAL:
 	get :
@@ -41,7 +42,11 @@ func level_change(level) :
 	print ("Got to level change")
 	print ("level is " + str(level))
 	level_data = Globals.level_data
-	#$AsteroidBuilder.buildScene()
+	Globals.ships += level_data.ShipsAdded
+	print(level_data)
+	$UI/MsgLabel.text = "Ready"
+	$UI/MsgLabel.show()
+	$ReadyTimer.start()
 
 func build_player() :
 	#print ("Inside build_player the level is " + str(Globals.level))
@@ -84,9 +89,18 @@ func lose_ship() :
 func _on_ready_timer_timeout():
 		$UI/MsgLabel.text = ""
 		$UI/MsgLabel.hide()
-		build_player()
+		var player_array = get_tree().get_nodes_in_group("Player")
+		if player_array.size() == 0 :
+			build_player()
+		if Globals.game_state == Globals.game_state_enum.NEW_GAME :
+			Globals.game_state = Globals.game_state_enum.RUNNING
+			$AsteroidBuilder.buildScene()
+		if Globals.game_state == Globals.game_state_enum.RUNNING :
+			$AsteroidBuilder.rebuild_asteroids()
+		
 
 func game_over() :
+	Globals.game_state = Globals.game_state_enum.NEW_GAME
 	$UI/MsgLabel.text = "Game Over"
 	$UI/MsgLabel.show()
 	$GameOverTimer.start()
@@ -102,7 +116,6 @@ func start_game() :
 	$UI/MsgLabel.text = "Ready"
 	$UI/MsgLabel.show()
 	$NewGameTimer.start()
-
 
 func _on_new_game_timer_timeout():
 	$UI/MsgLabel.text = ""

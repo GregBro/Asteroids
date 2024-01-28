@@ -56,16 +56,27 @@ func hit(laser_position) :
 	MsgQueue.send_asteroid_hit(hit_position)
 	if hit_points <=0 : 
 		if asteroid_size != Globals.AsteroidSize.SMALL :
-			MsgQueue.send_asteroid_breakup( position, linear_velocity, asteroid_size)
-		remove_from_group("Asteroids")
-		queue_free()
+			var this_position = position
+			var this_velocity = linear_velocity
+			var this_size = asteroid_size
+			remove_from_group("Asteroids")
+			queue_free()
+			MsgQueue.send_asteroid_breakup( this_position, this_velocity, this_size)
+		else  :
+			remove_from_group("Asteroids")
+			queue_free()
+			
 		var asteroids = get_tree().get_nodes_in_group("Asteroids")
 		print("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
-		if asteroids.size() <=2 : 
-			pass
-			#if check_for_lost_asteroids() == false :
-				#print("No More Asteroids")
-				#MsgQueue.send_score_change(1000)
-				#MsgQueue.send_rebuild_asteroids()
-				#Globals.level += 1
+		if asteroids.size() <=0 : 
+			var level_data = Globals.level_data
+			print ("Current level is " + str(level_data)) 
+			var isLastLevel = level_data.IsLastLevel
+			print("is last level : " + str(isLastLevel))
+			MsgQueue.send_score_change(1000)
+			if isLastLevel == false :
+				Globals.level += 1
+			else :
+				MsgQueue.send_rebuild_asteroids()
+				
 			
