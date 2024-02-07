@@ -13,8 +13,8 @@ friction = 0.0
 bounce = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jrigc"]
-radius = 45.0
-height = 172.0
+radius = 48.0
+height = 180.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_caj8t"]
 animations = [{
@@ -47,15 +47,15 @@ max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_rwrkc")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.5708
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_k2dbs")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CapsuleShape2D_jrigc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_k2dbs")
 
 [node name="RotateClockwiseRearJet" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -64,8 +64,7 @@ rotation = 1.5708
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_caj8t")
 animation = &"jet"
-frame = 2
-frame_progress = 0.761859
+frame_progress = 0.444551
 
 [node name="RotateClockwiseFrontJet" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -104,8 +103,7 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_caj8t")
 animation = &"jet"
-frame = 1
-frame_progress = 0.684472
+frame_progress = 0.347791
 
 [node name="ThrustJetRight" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -114,8 +112,7 @@ rotation = 3.14159
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_caj8t")
 animation = &"jet"
-frame = 1
-frame_progress = 0.684472
+frame_progress = 0.531342
 
 [node name="ReverseJetLeft" type="AnimatedSprite2D" parent="."]
 visible = false

@@ -86,7 +86,7 @@ func _integrate_forces(state):
 
 func _on_laser_timer_timeout():
 	can_laser = true
-	$LaserTimer.stop()
+	#$LaserTimer.stop()
 
 
 func _on_body_entered(body):

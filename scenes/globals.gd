@@ -7,7 +7,7 @@ var level_data
 
 var max_level  = 4
 
-enum game_state_enum {TITLE, NEW_GAME, RUNNING, PAUSE, HELL}
+enum game_state_enum {TITLE, GAME_OVER, LEVEL_CHANGE, NEW_GAME, RUNNING, PAUSE, HELL}
 var game_state : game_state_enum = game_state_enum.TITLE
 
 func _ready():

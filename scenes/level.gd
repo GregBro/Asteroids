@@ -16,16 +16,25 @@ var player_scene : PackedScene = preload("res://scenes/player.tscn")
 var laser_scene : PackedScene = preload("res://scenes/laser.tscn")
 var asteroid_hit_scene : PackedScene = preload("res://scenes/asteroid_hit_animation.tscn")
 
+var laser_sounds = ["res://Audio/151011__bubaproducer__laser-classic-shot-4.ogg",
+				"res://Audio/151012__bubaproducer__laser-classic-shot-3.ogg",
+				"res://Audio/151013__bubaproducer__laser-classic-shot-2.ogg",
+				"res://Audio/151024__bubaproducer__laser-shot-small-2.ogg",
+				"res://Audio/151025__bubaproducer__laser-shot-small-1.ogg"]
+
 func _ready():
+	
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	MsgQueue.connect("level_change", level_change)
 	MsgQueue.connect("fire_laser", fire_laser)
 	MsgQueue.connect("asteroid_hit", asteroid_hit)
 	MsgQueue.connect("lose_ship", lose_ship)
+	MsgQueue.connect("start_game", start_game)
 	screensize = get_viewport_rect().size
 	level_data = Globals.level_data
-	print(level_data)
+	#print(level_data)
 	$AsteroidBuilder.buildScene()
+	#$AudioStreamPlayer.stream = "res://Audio/ShortCannonBoom.ogg"
 	#print(InputMap.get_actions())
 
 func _process(_delta):
@@ -43,6 +52,7 @@ func level_change(level) :
 	print ("level is " + str(level))
 	level_data = Globals.level_data
 	Globals.ships += level_data.ShipsAdded
+	Globals.game_state = Globals.game_state_enum.LEVEL_CHANGE
 	print(level_data)
 	$UI/MsgLabel.text = "Ready"
 	$UI/MsgLabel.show()
@@ -62,6 +72,7 @@ func build_player() :
 	#return player_node
 
 func fire_laser(player_pos,player_direction):
+	#AudioStreamManager.play(laser_sounds[randi()%laser_sounds.size()])
 	var laser = laser_scene.instantiate()
 	laser.rotation_degrees = rad_to_deg(player_direction) 
 	laser.direction = Vector2.RIGHT.rotated(player_direction)
@@ -71,6 +82,9 @@ func fire_laser(player_pos,player_direction):
 
 func asteroid_hit(asteroid_position) :
 	#print("Asteroid Hit position : " + str(asteroid_position)) 
+	#AudioStreamManager.cannon_sfx.play()
+	AudioStreamManager.play("res://Audio/ShortCannonBoom.ogg")
+	#$AudioStreamPlayer.play()
 	var asteroid_hit_instance = asteroid_hit_scene.instantiate()
 	asteroid_hit_instance.position = asteroid_position
 	asteroid_hit_instance.show()
@@ -87,16 +101,17 @@ func lose_ship() :
 		game_over()
 
 func _on_ready_timer_timeout():
-		$UI/MsgLabel.text = ""
-		$UI/MsgLabel.hide()
-		var player_array = get_tree().get_nodes_in_group("Player")
-		if player_array.size() == 0 :
-			build_player()
-		if Globals.game_state == Globals.game_state_enum.NEW_GAME :
-			Globals.game_state = Globals.game_state_enum.RUNNING
-			$AsteroidBuilder.buildScene()
-		if Globals.game_state == Globals.game_state_enum.RUNNING :
-			$AsteroidBuilder.rebuild_asteroids()
+	$UI/MsgLabel.text = ""
+	$UI/MsgLabel.hide()
+	var player_array = get_tree().get_nodes_in_group("Player")
+	if player_array.size() == 0 :
+		build_player()
+	if Globals.game_state == Globals.game_state_enum.NEW_GAME :
+		Globals.game_state = Globals.game_state_enum.RUNNING
+		$AsteroidBuilder.buildScene()
+	if Globals.game_state == Globals.game_state_enum.LEVEL_CHANGE :
+		Globals.game_state = Globals.game_state_enum.RUNNING 
+		$AsteroidBuilder.rebuild_asteroids()
 		
 
 func game_over() :
@@ -107,8 +122,10 @@ func game_over() :
 
 
 func _on_game_over_timer_timeout():
+	Globals.game_state = Globals.game_state_enum.GAME_OVER
 	$AsteroidBuilder.blow_up_all_asteroids()
 	start_game()
+	
 
 func start_game() :
 	Globals.reset_game_data()
@@ -123,3 +140,4 @@ func _on_new_game_timer_timeout():
 	build_player()
 	$AsteroidBuilder.buildScene()
 	
+

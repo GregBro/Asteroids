@@ -84,6 +84,10 @@ func _on_asteroid_spawn_timer_timeout():
 
 func blow_up_all_asteroids() :
 	print ("Got to blow_up_all_asteroids")
+	if Globals.game_state == Globals.game_state_enum.GAME_OVER :
+		$AsteroidBlowupTimer.wait_time = 0.2
+	else :
+		$AsteroidBlowupTimer.wait_time = 0.5
 	$AsteroidSpawnTimer.stop()
 	var asteroid_array = get_tree().get_nodes_in_group("Asteroids")
 	print ("Array size " + str(asteroid_array.size()))
@@ -97,8 +101,8 @@ func _on_asteroid_blowup_timer_timeout():
 		asteroid_array[0].queue_free()
 		$AsteroidBlowupTimer.start()
 	else :
-		if Globals.game_state == Globals.game_state_enum.TITLE :
-			Globals.game_state == Globals.game_state_enum.NEW_GAME
+		if Globals.game_state == Globals.game_state_enum.TITLE || Globals.game_state == Globals.game_state_enum.GAME_OVER :
+			Globals.game_state = Globals.game_state_enum.NEW_GAME
 
 func asteroid_breakup(asteroid_position, direction, size) :
 	#print("Got to Asteroid breakup in main")
@@ -113,25 +117,25 @@ func asteroid_breakup(asteroid_position, direction, size) :
 		asteroid_1 = asteroid_small_scene.instantiate()
 		asteroid_2 = asteroid_small_scene.instantiate()
 	else:
-		var asteroid_list = get_tree().get_nodes_in_group("Asteroids")
-		print("In Asteroid Breakup Asteroid count : " + str(asteroid_list.size()))
+		#var asteroid_list = get_tree().get_nodes_in_group("Asteroids")
+		#print("In Asteroid Breakup Asteroid count : " + str(asteroid_list.size()))
 		return
 
 	asteroid_1.position = asteroid_position	- Vector2(25,25)
 	asteroid_2.position = asteroid_position	+ Vector2(25,25)
 	asteroid_1.linear_velocity = direction.rotated(-0.25)
 	asteroid_2.linear_velocity = direction.rotated(0.25)
-	get_parent().add_child((asteroid_1))
-	get_parent().add_child((asteroid_2))
-	#call_deferred("add_child", asteroid_1)
-	#call_deferred("add_child", asteroid_2)
+	#get_parent().add_child((asteroid_1))
+	#get_parent().add_child((asteroid_2))
+	call_deferred("add_child", asteroid_1)
+	call_deferred("add_child", asteroid_2)
 
 	asteroid_1.add_to_group("Asteroids")
-	var asteroids = get_tree().get_nodes_in_group("Asteroids")
-	print("In Asteroid Breakup after splitting : Asteroid count : " + str(asteroids.size()))
+	#var asteroids = get_tree().get_nodes_in_group("Asteroids")
+	#print("In Asteroid Breakup after splitting : Asteroid count : " + str(asteroids.size()))
 	asteroid_2.add_to_group("Asteroids")
-	asteroids = get_tree().get_nodes_in_group("Asteroids")
-	print("In Asteroid Breakup after splitting : Asteroid count : " + str(asteroids.size()))
+	#asteroids = get_tree().get_nodes_in_group("Asteroids")
+	#print("In Asteroid Breakup after splitting : Asteroid count : " + str(asteroids.size()))
 	
 	asteroid_1.show()
 	asteroid_2.show()

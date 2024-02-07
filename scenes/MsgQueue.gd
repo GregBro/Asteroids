@@ -9,6 +9,11 @@ signal ship_health(health)
 signal lose_ship()
 signal rebuild_asteroids()
 signal level_change()
+signal start_game()
+
+func send_start_game() :
+	start_game.emit()
+
 
 func send_level_change() :
 	level_change.emit(Globals.level)

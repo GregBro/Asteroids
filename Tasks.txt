@@ -1,27 +1,20 @@
 Bugs:
-	Somtimes asteroids spawn mid-screen - FIXED
-	Sometimes the last asteroid is lost.
-		If asteroid count down to 2 or less check to see if they are all off screen.
-	After an asteroid hits a ship the forward and backward jets stop working
-	Dictionary based asteroid creation is not working properly and the 2nd and supsequent build.
-		asteroid count is beint set to 1 instead of what's in the data dictionary
-
-
-Fix Game Over - DONE - Refactor to use data dictionary
-Add Health Bar back - DONE
-	make health bar reset to ship initial health so when we have stronger ships it still works
-	
-FIRST - refactor to use resources to set a level. - Working
-		Spawn timer, what objects spwn, how many. - DONE
-		This will make levels change easier
-		
-		We could have a hell mode which never stops.
+	After ship loss the asteroid build runs again
 	
 Fix Level Up to use data dictionary 
+States:
+	New game after title screen.
+	Level up within play
+	Proper behavior when ship is lost
+	Game over
+		All asteroids blow up
+		Reset to Title Screen
+		
 
-New Ship every 3 levels -  data dictionary
+We could have a hell mode which never stops.
 
 Add quit and pause menu - would be nice to have soon - DONE
+	BE sure to hide the MsgLabel when pause is up.
 
 start up screen to pick difficulty - GUI Done, Not functional
 
