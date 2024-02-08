@@ -2,15 +2,11 @@ extends Node2D
 
 
 enum difficulty_enum {NORMAL,HARD,SERIOUSLY,HELL}
-var difficulty : difficulty_enum  = difficulty_enum.NORMAL:
-	get :
-		return difficulty
-	set(value):
-		#$TitleOverlay.hide()
-		difficulty = value
+var difficulty : difficulty_enum  = difficulty_enum.NORMAL
 
 var screensize 
 var level_data
+var is_pauseable : bool = true
 
 var player_scene : PackedScene = preload("res://scenes/player.tscn")
 var laser_scene : PackedScene = preload("res://scenes/laser.tscn")
@@ -23,7 +19,6 @@ var laser_sounds = ["res://Audio/151011__bubaproducer__laser-classic-shot-4.ogg"
 				"res://Audio/151025__bubaproducer__laser-shot-small-1.ogg"]
 
 func _ready():
-	
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	MsgQueue.connect("level_change", level_change)
 	MsgQueue.connect("fire_laser", fire_laser)
@@ -38,11 +33,16 @@ func _ready():
 	#print(InputMap.get_actions())
 
 func _process(_delta):
-	if Input.is_action_pressed("ui_cancel") :
+	if Input.is_action_pressed("ui_cancel")  &&  Globals.game_state != Globals.game_state_enum.TITLE && is_pauseable:
 	# Replace this with pause screen
-		get_tree().paused = true
-		$TitleOverlay.hide()
-		$PauseOverlay.show()
+		is_pauseable = false
+		if get_tree().paused :
+			get_tree().paused = false
+			$PauseOverlay.hide()
+		else :
+			get_tree().paused = true
+			$PauseOverlay.show()
+		$PauseTimer.start()
 
 func quit_game() :
 	get_tree().quit()
@@ -80,6 +80,7 @@ func fire_laser(player_pos,player_direction):
 	laser.add_to_group("Lasers")
 	add_child(laser)
 
+
 func asteroid_hit(asteroid_position) :
 	#print("Asteroid Hit position : " + str(asteroid_position)) 
 	#AudioStreamManager.cannon_sfx.play()
@@ -91,6 +92,7 @@ func asteroid_hit(asteroid_position) :
 	asteroid_hit_instance.play()
 	add_child(asteroid_hit_instance)
 	MsgQueue.send_score_change(10)
+
 
 func lose_ship() :
 	if Globals.ships > 0 :
@@ -124,8 +126,12 @@ func game_over() :
 func _on_game_over_timer_timeout():
 	Globals.game_state = Globals.game_state_enum.GAME_OVER
 	$AsteroidBuilder.blow_up_all_asteroids()
-	start_game()
-	
+	Globals.game_state = Globals.game_state_enum.TITLE
+	$UI/MsgLabel.hide()
+	$UI.hide()
+	$TitleOverlay.show()
+	$TitleOverlay.reset_buttons()
+
 
 func start_game() :
 	Globals.reset_game_data()
@@ -134,10 +140,13 @@ func start_game() :
 	$UI/MsgLabel.show()
 	$NewGameTimer.start()
 
+
 func _on_new_game_timer_timeout():
 	$UI/MsgLabel.text = ""
 	$UI/MsgLabel.hide()
 	build_player()
 	$AsteroidBuilder.buildScene()
-	
 
+
+func _on_pause_timer_timeout():
+	is_pauseable = true

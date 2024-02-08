@@ -14,6 +14,7 @@ _data = {
 point_count = 5
 
 [node name="Level" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_s66s0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -50,6 +51,10 @@ one_shot = true
 wait_time = 4.0
 one_shot = true
 
+[node name="PauseTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_new_game_timer_timeout"]
+[connection signal="timeout" from="PauseTimer" to="." method="_on_pause_timer_timeout"]

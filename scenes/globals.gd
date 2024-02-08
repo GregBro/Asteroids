@@ -11,11 +11,17 @@ enum game_state_enum {TITLE, GAME_OVER, LEVEL_CHANGE, NEW_GAME, RUNNING, PAUSE, 
 var game_state : game_state_enum = game_state_enum.TITLE
 
 func _ready():
-	load_level_dictionary()
+	load_level_dictionary("normal")
 	level_data = level_dictionary[0]
 
-func load_level_dictionary() :
+func load_level_dictionary(difficulty) :
 	var file = "res://data/LevelData.json"
+	if(difficulty == "hard") :
+		file = "res://data/LevelDataHard.json"
+	if(difficulty == "seriously") :
+		file = "res://data/LevelDataSeriously.json"
+	if(difficulty == "hell") :
+		file = "res://data/LevelDataHell.json"
 	var json_as_text = FileAccess.get_file_as_string(file)
 	level_dictionary = JSON.parse_string(json_as_text)
 	#print(level_dictionary)
