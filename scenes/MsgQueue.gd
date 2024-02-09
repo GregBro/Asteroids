@@ -10,10 +10,13 @@ signal lose_ship()
 signal rebuild_asteroids()
 signal level_change()
 signal start_game()
+signal weapon_heat()
 
 func send_start_game() :
 	start_game.emit()
 
+func send_weapon_heat() :
+	weapon_heat.emit(Globals.weapon_heat)
 
 func send_level_change() :
 	level_change.emit(Globals.level)

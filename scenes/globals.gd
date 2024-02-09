@@ -14,6 +14,7 @@ func _ready():
 	load_level_dictionary("normal")
 	level_data = level_dictionary[0]
 
+
 func load_level_dictionary(difficulty) :
 	var file = "res://data/LevelData.json"
 	if(difficulty == "hard") :
@@ -26,6 +27,7 @@ func load_level_dictionary(difficulty) :
 	level_dictionary = JSON.parse_string(json_as_text)
 	#print(level_dictionary)
 
+
 var ships_starting_amount : int = 3
 var ships : int = ships_starting_amount :
 	get :
@@ -34,6 +36,7 @@ var ships : int = ships_starting_amount :
 		ships = value
 		MsgQueue.send_ships_change()
 
+
 var score_starting_amount : int = 0
 var score : int = score_starting_amount :
 	get :
@@ -41,6 +44,7 @@ var score : int = score_starting_amount :
 	set(value):
 		score = value
 		MsgQueue.send_score_change(score)
+
 
 var level_starting_point : int = 0
 var level = level_starting_point :
@@ -54,13 +58,15 @@ var level = level_starting_point :
 		level_data = level_dictionary[level]
 		MsgQueue.send_level_change()
 
-var ship_health_initial_value = 3
+
+var ship_health_initial_value = 30
 var ship_health = ship_health_initial_value :
 	get :
 		return ship_health
 	set(value):
 		ship_health = value
 		MsgQueue.send_ship_health()
+
 
 #Used when starting a new game
 func reset_game_data() :
@@ -69,3 +75,17 @@ func reset_game_data() :
 	level_data = level_dictionary[level]
 	score = score_starting_amount 
 	ships = ships_starting_amount
+
+var weapon_heat_initial_value = 0
+var weapon_heat_max_value = 30
+var weapon_heat = weapon_heat_initial_value :
+	get :
+		return weapon_heat
+	set(value):
+		if(value <= weapon_heat_max_value &&  value > -1) :
+			weapon_heat = value
+		MsgQueue.send_weapon_heat()
+
+
+func _on_heat_timer_timeout():
+	weapon_heat -=2

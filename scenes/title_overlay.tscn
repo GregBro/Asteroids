@@ -23,22 +23,6 @@ theme_override_fonts/font = ExtResource("2_62b2h")
 theme_override_font_sizes/font_size = 128
 text = "Asteroid Attack"
 
-[node name="ExitButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -282.0
-offset_top = -258.0
-offset_right = 283.0
-offset_bottom = -173.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_62b2h")
-theme_override_font_sizes/font_size = 64
-text = "Exit Game"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,6 +38,7 @@ grow_vertical = 2
 
 [node name="NormalDifficultyButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../../ExitButton")
 theme_override_fonts/font = ExtResource("2_62b2h")
 theme_override_font_sizes/font_size = 64
 text = "Normal
@@ -75,8 +60,33 @@ text = "Seriously ?
 
 [node name="HellDifficultyButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../ExitButton")
 theme_override_colors/font_color = Color(0.988235, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_mwtl3")
 theme_override_font_sizes/font_size = 64
 text = "Hell
 "
+
+[node name="ExitButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -282.0
+offset_top = -258.0
+offset_right = 283.0
+offset_bottom = -173.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_neighbor_top = NodePath("../VBoxContainer/HellDifficultyButton")
+focus_neighbor_bottom = NodePath("../VBoxContainer/NormalDifficultyButton")
+theme_override_fonts/font = ExtResource("2_62b2h")
+theme_override_font_sizes/font_size = 64
+text = "Exit Game"
+
+[node name="SelectionTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="SelectionTimer" to="." method="_on_selection_timer_timeout"]

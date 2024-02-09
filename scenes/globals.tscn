@@ -4,3 +4,9 @@
 
 [node name="Globals" type="Node"]
 script = ExtResource("1_vhssm")
+
+[node name="HeatTimer" type="Timer" parent="."]
+wait_time = 0.6
+autostart = true
+
+[connection signal="timeout" from="HeatTimer" to="." method="_on_heat_timer_timeout"]

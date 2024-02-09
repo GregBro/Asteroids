@@ -18,23 +18,26 @@ func _ready():
 	MsgQueue.connect("asteroid_breakup", asteroid_breakup)
 	MsgQueue.connect("rebuild_asteroids", rebuild_asteroids)
 
+
 func rebuild_asteroids() :
 	level_data = Globals.level_data
 	current_asteroid_size_to_build = Globals.AsteroidSize.LARGE
 	asteroidCount = level_data.LargeAsteroidCount
-	print("Inside asteroidBuilder rebuild_asteroids" )
-	print(level_data)
+	Logger.debug("Inside asteroidBuilder rebuild_asteroids" )
+	Logger.debug(str(level_data))
 	$AsteroidSpawnTimer.wait_time = level_data.AsteroidSpawnTime
 	$AsteroidSpawnTimer.start()
 
+
 func buildScene() :
 	level_data = Globals.level_data
-	print("Inside asteroidBuilder " )
-	print(level_data)
+	Logger.debug("Inside asteroidBuilder " )
+	Logger.debug(str(level_data))
 	current_asteroid_size_to_build = Globals.AsteroidSize.LARGE
 	asteroidCount = level_data.LargeAsteroidCount
 	$AsteroidSpawnTimer.wait_time = level_data.AsteroidSpawnTime
 	$AsteroidSpawnTimer.start()
+
 
 func build_asteroid() :
 	if(asteroidCount >0) :
@@ -79,20 +82,23 @@ func build_asteroid() :
 			current_asteroid_size_to_build = Globals.AsteroidSize.SMALL
 			$AsteroidSpawnTimer.start()
 
+
 func _on_asteroid_spawn_timer_timeout():
 	build_asteroid()
 
+
 func blow_up_all_asteroids() :
-	print ("Got to blow_up_all_asteroids")
+	Logger.debug ("Got to blow_up_all_asteroids")
 	if Globals.game_state == Globals.game_state_enum.GAME_OVER :
 		$AsteroidBlowupTimer.wait_time = 0.2
 	else :
 		$AsteroidBlowupTimer.wait_time = 0.5
 	$AsteroidSpawnTimer.stop()
 	var asteroid_array = get_tree().get_nodes_in_group("Asteroids")
-	print ("Array size " + str(asteroid_array.size()))
+	Logger.debug ("Array size " + str(asteroid_array.size()))
 	if(asteroid_array.size() > 0):
 		$AsteroidBlowupTimer.start()
+
 
 func _on_asteroid_blowup_timer_timeout():
 	var asteroid_array = get_tree().get_nodes_in_group("Asteroids")
@@ -103,6 +109,7 @@ func _on_asteroid_blowup_timer_timeout():
 	else :
 		if Globals.game_state == Globals.game_state_enum.TITLE || Globals.game_state == Globals.game_state_enum.GAME_OVER :
 			Globals.game_state = Globals.game_state_enum.NEW_GAME
+
 
 func asteroid_breakup(asteroid_position, direction, size) :
 	#print("Got to Asteroid breakup in main")
@@ -139,5 +146,5 @@ func asteroid_breakup(asteroid_position, direction, size) :
 	
 	asteroid_1.show()
 	asteroid_2.show()
-	
+
 

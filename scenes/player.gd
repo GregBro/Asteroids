@@ -8,6 +8,7 @@ var thrust_speed = 150
 var max_velocity = 250
 var max_rotation = 2
 
+
 func _ready():
 	screensize = get_viewport_rect().size
 	Globals.ship_health = Globals.ship_health_initial_value
@@ -60,11 +61,15 @@ func _process(delta):
 		$ReverseJetRight.hide()			
 	if Input.is_action_pressed("fire_laser") && can_laser && is_visible_in_tree() :
 		#print("Fire!")
+		if(Globals.weapon_heat >= Globals.weapon_heat_max_value) :
+			return
 		$LaserTimer.start()
 		can_laser = false
+		Globals.weapon_heat += 2
 		var player_pos = position
 		var player_direction = rotation
 		MsgQueue.send_fire_laser(player_pos, player_direction )
+
 
 func _integrate_forces(state):
 	var xform = state.get_transform()
@@ -80,7 +85,6 @@ func _integrate_forces(state):
 		
 	if xform.origin.y < 0:
 		xform.origin.y = screensize.y 
-
 	state.set_transform(xform)
 
 
@@ -91,10 +95,10 @@ func _on_laser_timer_timeout():
 
 func _on_body_entered(body):
 	if can_crash && body.is_in_group("Asteroids"):
-		#print("Ships " + str(Globals.ships))
+		#Logger.debug("Ships " + str(Globals.ships))
 		can_crash = false
-		Globals.ship_health -= 1
-		#print("Health : " + str(Globals.ship_health))
+		Globals.ship_health -= 10
+		#Logger.debug("Health : " + str(Globals.ship_health))
 		MsgQueue.send_asteroid_hit(position)
 		if Globals.ship_health <= 0 :
 			lose_ship()
@@ -102,14 +106,16 @@ func _on_body_entered(body):
 			$CrashTimer.start()
 		limit_max_velocity()
 
+
 func _on_crash_timer_timeout():
 	can_crash = true
+
 
 func lose_ship() :
 	#print("In Lose Ships " + str(Globals.ships))
 	Globals.ships = Globals.ships -1
 	queue_free()
-	#print("In Lose Ships after increment" + str(Globals.ships))
+
 	MsgQueue.send_lose_ship()
 
 func limit_max_velocity() :
