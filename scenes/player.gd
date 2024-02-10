@@ -2,6 +2,7 @@ extends RigidBody2D
 
 var can_laser : bool = true
 var can_crash : bool = true
+var triple_laser_enabled : bool = false
 var screensize 
 var rotation_speed = 2
 var thrust_speed = 150
@@ -61,14 +62,18 @@ func _process(delta):
 		$ReverseJetRight.hide()			
 	if Input.is_action_pressed("fire_laser") && can_laser && is_visible_in_tree() :
 		#print("Fire!")
-		if(Globals.weapon_heat >= Globals.weapon_heat_max_value) :
-			return
 		$LaserTimer.start()
 		can_laser = false
+		if(Globals.weapon_heat >= Globals.weapon_heat_max_value) :
+			Globals.ship_health -= 1
+			return
 		Globals.weapon_heat += 2
 		var player_pos = position
 		var player_direction = rotation
 		MsgQueue.send_fire_laser(player_pos, player_direction )
+		if triple_laser_enabled :
+			MsgQueue.send_fire_laser(player_pos, player_direction + PI/30 )
+			MsgQueue.send_fire_laser(player_pos, player_direction - PI/30 )
 
 
 func _integrate_forces(state):
@@ -105,8 +110,27 @@ func _on_body_entered(body):
 		else :
 			$CrashTimer.start()
 		limit_max_velocity()
+	if body.is_in_group("EquipmentDrop"):
+		handle_equip_drop(body)
 
 
+func handle_equip_drop(body):
+	var type = body.type
+	print ("Caught Equipment Drop")
+	if type == body.drop_type.HEALTH :
+		Globals.ship_health +=30
+	if type == body.drop_type.SHIP :
+		Globals.ships +=1
+	if type == body.drop_type.TRIPLELASER :
+		start_triple_laser()
+	body.queue_free()
+
+
+func start_triple_laser() :
+	triple_laser_enabled = true
+	$TripleLaserTimer.start()
+	
+	
 func _on_crash_timer_timeout():
 	can_crash = true
 
@@ -123,3 +147,7 @@ func limit_max_velocity() :
 		linear_velocity.x = max_velocity 
 	if linear_velocity.y > max_velocity :
 		linear_velocity.y = max_velocity 
+
+
+func _on_triple_laser_timer_timeout():
+	triple_laser_enabled = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://buwwjqptgn2r7"]
+[gd_scene load_steps=10 format=3 uid="uid://buwwjqptgn2r7"]
 
 [ext_resource type="Texture2D" uid="uid://imarlerl1ow4" path="res://art/milky-way.jpg" id="1_pilqm"]
 [ext_resource type="Script" path="res://scenes/level.gd" id="1_s66s0"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://qpmvsjimoohg" path="res://scenes/title_overlay.tscn" id="4_pvxrm"]
 [ext_resource type="PackedScene" uid="uid://bpoopf31ie5rm" path="res://scenes/pause_overlay.tscn" id="5_y03no"]
 [ext_resource type="PackedScene" uid="uid://dufjk11jaw5r7" path="res://scenes/ui.tscn" id="6_cbyla"]
+[ext_resource type="Texture2D" uid="uid://c00nj1r8sksr8" path="res://art/sizes.png" id="7_5lqpy"]
+[ext_resource type="PackedScene" uid="uid://l6026avc6brq" path="res://scenes/equipment_drop.tscn" id="8_0l3ky"]
 
 [sub_resource type="Curve2D" id="Curve2D_0s43a"]
 _data = {
@@ -53,6 +55,14 @@ one_shot = true
 
 [node name="PauseTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="SizeGraphic" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(491, 485)
+texture = ExtResource("7_5lqpy")
+
+[node name="EquipmentDrop" parent="." instance=ExtResource("8_0l3ky")]
+position = Vector2(1347, 485)
 
 [connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

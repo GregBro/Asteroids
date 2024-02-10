@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://l6026avc6brq"]
+
+[ext_resource type="Texture2D" uid="uid://b2owj8d80wc0g" path="res://art/Heart2_32x32.png" id="1_e4s80"]
+[ext_resource type="Script" path="res://scenes/equipment_drop.gd" id="1_lbw12"]
+[ext_resource type="Texture2D" uid="uid://dfu6npnb0i555" path="res://art/tripleLaser.png" id="2_u1wy3"]
+[ext_resource type="Texture2D" uid="uid://1ubldd4a82al" path="res://art/shipEquipDrop.png" id="3_3er7c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yd4dj"]
+radius = 30.0167
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jnpgy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_e4s80")
+}],
+"loop": false,
+"name": &"Heart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3er7c")
+}],
+"loop": true,
+"name": &"Ship",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u1wy3")
+}],
+"loop": false,
+"name": &"TripleLaser",
+"speed": 5.0
+}]
+
+[node name="EquipmentDrop" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 2
+mass = 500.0
+gravity_scale = 0.0
+script = ExtResource("1_lbw12")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yd4dj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jnpgy")
+animation = &"Ship"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="OnscreenTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="OnscreenTimer" to="." method="_on_onscreen_timer_timeout"]

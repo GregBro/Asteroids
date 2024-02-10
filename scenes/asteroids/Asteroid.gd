@@ -2,6 +2,8 @@ extends RigidBody2D
 
 class_name AsteroidBaseClass
 
+var equipment_drop_scene : PackedScene = preload("res://scenes/equipment_drop.tscn")
+
 var asteroid_size = Globals.AsteroidSize.LARGE
 
 #var speed_x = -100
@@ -55,6 +57,10 @@ func hit(laser_position) :
 			queue_free()
 			MsgQueue.send_asteroid_breakup( this_position, this_velocity, this_size)
 		else  :
+			if randi()%100 < 90 :
+				var equip_drop = equipment_drop_scene.instantiate()
+				equip_drop.position = hit_position
+				get_parent().add_child(equip_drop)
 			remove_from_group("Asteroids")
 			queue_free()
 			
