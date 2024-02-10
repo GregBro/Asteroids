@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var show_msg : bool = false
 
 func _ready() :
 	$VBoxContainer/ResumeButton.pressed.connect(self.resume_game)
@@ -18,11 +19,19 @@ func _process(_delta):
 
 func enable() :
 	get_tree().paused = true
+	if get_parent().get_node("UI").get_node("MsgLabel").is_visible() :
+		get_parent().get_node("UI").get_node("MsgLabel").hide()
+		show_msg = true
+	else :
+		show_msg = false
 	self.show()
 	$VBoxContainer/ResumeButton.grab_focus()
 
 func resume_game() :
 	print("Resumed")
+	if show_msg :
+		get_parent().get_node("UI").get_node("MsgLabel").show()
+		show_msg = false
 	self.hide()
 	get_tree().paused = false
 
