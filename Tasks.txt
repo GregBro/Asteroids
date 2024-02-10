@@ -1,14 +1,6 @@
 Bugs:
-	After ship loss the asteroid build runs again
 	
-Fix Level Up to use data dictionary 
 States:
-	New game after title screen.
-	Level up within play
-	Proper behavior when ship is lost
-	Game over
-		All asteroids blow up
-		Reset to Title Screen
 		
 
 We could have a hell mode which never stops.
@@ -16,10 +8,9 @@ We could have a hell mode which never stops.
 Add quit and pause menu - would be nice to have soon - DONE
 	BE sure to hide the MsgLabel when pause is up.
 
-start up screen to pick difficulty - GUI Done, Not functional
 
 Add weapon upgrades
 health drops
 level configuration
-overheating on lasers
+overheating on lasers - Done
 
