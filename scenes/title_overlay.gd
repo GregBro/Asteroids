@@ -4,17 +4,21 @@ var can_select : bool = true
 
 
 func _ready() :
-	$ExitButton.pressed.connect(self.quit_game)
-	$VBoxContainer/NormalDifficultyButton.pressed.connect(self.set_level_normal)
-	$VBoxContainer/HardDifficultyButton.pressed.connect(self.set_level_hard)
-	$VBoxContainer/SeriouslyDifficultyButton.pressed.connect(self.set_level_seriously)
-	$VBoxContainer/HellDifficultyButton.pressed.connect(self.set_level_hell)
 	$VBoxContainer/NormalDifficultyButton.grab_focus()
-	#Logger.debug(str(group.get_buttons()))
 
 
 func _process(_delta):
-	pass
+	if ( Input.is_action_pressed("ui_select")) :
+		if $VBoxContainer/NormalDifficultyButton.has_focus() :
+			set_level_normal()
+		if $VBoxContainer/HardDifficultyButton.has_focus() :
+			set_level_hard()
+		if $VBoxContainer/SeriouslyDifficultyButton.has_focus() :
+			set_level_seriously()
+		if $VBoxContainer/HellDifficultyButton.has_focus() :
+			set_level_hell()
+		if  $ExitButton.has_focus() :
+			quit_game()
 
 
 func _on_selection_timer_timeout():

@@ -21,7 +21,8 @@ var laser_sounds = ["res://Audio/151011__bubaproducer__laser-classic-shot-4.ogg"
 
 
 func _ready():
-	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	Logger.set_logger_level(Logger.LOG_LEVEL_ERROR)
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	MsgQueue.connect("level_change", level_change)
 	MsgQueue.connect("fire_laser", fire_laser)
 	MsgQueue.connect("asteroid_hit", asteroid_hit)
@@ -43,9 +44,10 @@ func _process(_delta):
 			get_tree().paused = false
 			$PauseOverlay.hide()
 		else :
-			get_tree().paused = true
-			$PauseOverlay.show()
+			$PauseOverlay.enable()
 		$PauseTimer.start()
+	if Input.is_action_pressed("ui_cancel") :
+		pass
 
 
 func quit_game() :
@@ -116,7 +118,6 @@ func _on_ready_timer_timeout():
 	if Globals.game_state == Globals.game_state_enum.LEVEL_CHANGE :
 		Globals.game_state = Globals.game_state_enum.RUNNING 
 		$AsteroidBuilder.rebuild_asteroids()
-		
 
 
 func game_over() :

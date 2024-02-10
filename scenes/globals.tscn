@@ -6,6 +6,7 @@
 script = ExtResource("1_vhssm")
 
 [node name="HeatTimer" type="Timer" parent="."]
+process_mode = 1
 wait_time = 0.6
 autostart = true
 

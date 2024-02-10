@@ -15,37 +15,29 @@ var hit_offset = -50
 
 var screen_wrap_offset = 70
 
+
 func _ready():
-	#print("Parent")
 	screensize = get_viewport_rect().size
-	
+
 
 func _integrate_forces(state):
 	var xform = state.get_transform()
 	screensize = get_viewport_rect().size
-	#print("Viewport : " + str(screensize))
-	#print("xform : " + str(xform.origin))
-	#print("Position : " + str(position))
-	#print(str(asteroid_state))
-	#set_axis_velocity(linear_velocity) 
 	if xform.origin.x > screensize.x + screen_wrap_offset:
-		#print("resetting x ")
 		xform.origin.x = -screen_wrap_offset
 		
 	if xform.origin.x < -screen_wrap_offset:
-		#print("resetting x ")
 		xform.origin.x = screensize.x + screen_wrap_offset
 		
 	if xform.origin.y > screensize.y + screen_wrap_offset:
-		#print("resetting y ")
 		xform.origin.y = -screen_wrap_offset
 
 	if xform.origin.y < -screen_wrap_offset:
-		#print("resetting y ")
 		xform.origin.y = screensize.y + screen_wrap_offset
 
 	state.set_transform(xform)
-	
+
+
 func hit(laser_position) :
 	#print("Asteroid_hit in Asteroid Node ")
 	#print("asteroid_size " + str(asteroid_size))	
@@ -67,16 +59,15 @@ func hit(laser_position) :
 			queue_free()
 			
 		var asteroids = get_tree().get_nodes_in_group("Asteroids")
-		print("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
+		Logger.debug("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
 		if asteroids.size() <=0 : 
 			var level_data = Globals.level_data
-			print ("Current level is " + str(level_data)) 
+			Logger.debug ("Current level is " + str(level_data)) 
 			var isLastLevel = level_data.IsLastLevel
-			print("is last level : " + str(isLastLevel))
+			Logger.debug("is last level : " + str(isLastLevel))
 			MsgQueue.send_score_change(1000)
 			if isLastLevel == false :
 				Globals.level += 1
 			else :
 				MsgQueue.send_rebuild_asteroids()
-				
-			
+

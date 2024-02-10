@@ -115,8 +115,8 @@ func lose_ship() :
 	#print("In Lose Ships " + str(Globals.ships))
 	Globals.ships = Globals.ships -1
 	queue_free()
-
 	MsgQueue.send_lose_ship()
+
 
 func limit_max_velocity() :
 	if linear_velocity.x > max_velocity :

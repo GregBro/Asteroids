@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cb5wjtucy0vmq" path="res://art/progressHeat.png" id="4_o3om1"]
 
 [node name="UI" type="CanvasLayer"]
+process_mode = 1
 script = ExtResource("1_a0k4y")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
