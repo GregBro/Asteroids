@@ -66,6 +66,11 @@ var ship_health = ship_health_initial_value :
 	set(value):
 		ship_health = value
 		MsgQueue.send_ship_health()
+		if ship_health <= 0 :
+			var player_array = get_tree().get_nodes_in_group("Player")
+			if player_array.size() >= 0 :
+				player_array[0].queue_free()
+			MsgQueue.send_lose_ship()
 
 
 #Used when starting a new game

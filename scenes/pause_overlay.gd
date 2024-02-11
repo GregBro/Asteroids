@@ -27,6 +27,7 @@ func enable() :
 	self.show()
 	$VBoxContainer/ResumeButton.grab_focus()
 
+
 func resume_game() :
 	print("Resumed")
 	if show_msg :
