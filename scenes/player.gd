@@ -12,6 +12,7 @@ var max_rotation = 2
 
 func _ready():
 	screensize = get_viewport_rect().size
+	can_crash = true
 	Globals.ship_health = Globals.ship_health_initial_value
 	#Globals.ships = Globals.ships_starting_amount
 	$RotateClockwiseRearJet.play()
@@ -99,6 +100,7 @@ func _on_laser_timer_timeout():
 
 
 func _on_body_entered(body):
+	Logger.debug("can_crash is " + str(can_crash))
 	if can_crash && body.is_in_group("Asteroids"):
 		#Logger.debug("Ships " + str(Globals.ships))
 		can_crash = false
@@ -116,7 +118,7 @@ func _on_body_entered(body):
 
 func handle_equip_drop(body):
 	var type = body.type
-	print ("Caught Equipment Drop")
+	#print ("Caught Equipment Drop")
 	if type == body.drop_type.HEALTH :
 		Globals.ship_health +=30
 	if type == body.drop_type.SHIP :
@@ -138,6 +140,7 @@ func _on_crash_timer_timeout():
 func lose_ship() :
 	#print("In Lose Ships " + str(Globals.ships))
 	Globals.ships = Globals.ships -1
+	can_crash = true
 	queue_free()
 	MsgQueue.send_lose_ship()
 
