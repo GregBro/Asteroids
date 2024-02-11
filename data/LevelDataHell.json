@@ -39,7 +39,7 @@
    "SmallAsteroidCount": 6,
    "AsteroidSpawnTime": 2,
    "ShipsAdded": 0,
-   "AsteroidTopSpeed" : 120,
+   "AsteroidTopSpeed" : 130,
    "PlayerEnabled" : true,
    "IsLastLevel"	: false
  },

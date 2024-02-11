@@ -154,3 +154,7 @@ func _on_new_game_timer_timeout():
 
 func _on_pause_timer_timeout():
 	is_pauseable = true
+
+
+func _on_hell_mode_t_imer_timeout():
+	pass # Replace with function body.

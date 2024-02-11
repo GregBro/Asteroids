@@ -39,4 +39,5 @@ func _on_onscreen_timer_timeout():
 
 func on_tween_finished():
 	#print("Tween done!")
-	queue_free
+	queue_free()
+

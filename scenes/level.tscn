@@ -62,9 +62,14 @@ position = Vector2(491, 485)
 texture = ExtResource("7_5lqpy")
 
 [node name="EquipmentDrop" parent="." instance=ExtResource("8_0l3ky")]
+visible = false
 position = Vector2(1347, 485)
+
+[node name="HellModeTImer" type="Timer" parent="."]
+wait_time = 20.0
 
 [connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_new_game_timer_timeout"]
 [connection signal="timeout" from="PauseTimer" to="." method="_on_pause_timer_timeout"]
+[connection signal="timeout" from="HellModeTImer" to="." method="_on_hell_mode_t_imer_timeout"]
