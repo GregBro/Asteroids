@@ -64,6 +64,8 @@ var ship_health = ship_health_initial_value :
 	get :
 		return ship_health
 	set(value):
+		if value > ship_health_initial_value :
+			value = ship_health_initial_value
 		ship_health = value
 		MsgQueue.send_ship_health()
 		if ship_health <= 0 :
