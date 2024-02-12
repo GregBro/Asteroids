@@ -157,4 +157,12 @@ func _on_pause_timer_timeout():
 
 
 func _on_hell_mode_t_imer_timeout():
-	pass # Replace with function body.
+	var asteroid_size = randi()%3
+	match asteroid_size :
+		0: $AsteroidBuilder.current_asteroid_size_to_build = Globals.AsteroidSize.LARGE
+		1: $AsteroidBuilder.current_asteroid_size_to_build = Globals.AsteroidSize.MEDIUM
+		2: $AsteroidBuilder.current_asteroid_size_to_build = Globals.AsteroidSize.SMALL
+	$AsteroidBuilder.buildAsteroid()
+			
+	
+	#$AsteroidBuilder

@@ -60,9 +60,9 @@ func hit(laser_position) :
 			if randi()%100 < 90 :
 				var equip_drop = equipment_drop_scene.instantiate()
 				equip_drop.position = hit_position
-				get_parent().add_child(equip_drop)
+				get_parent().call_deferred("add_child",equip_drop)
 			remove_from_group("Asteroids")
-			queue_free()
+			call_deferred("queue_free")
 			
 		var asteroids = get_tree().get_nodes_in_group("Asteroids")
 		Logger.debug("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
