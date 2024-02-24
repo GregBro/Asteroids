@@ -8,4 +8,5 @@ gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
 linear_damp_mode = 1
+angular_damp_mode = 1
 script = ExtResource("1_e1qr6")

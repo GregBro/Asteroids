@@ -46,7 +46,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="GameOverTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 6.0
 one_shot = true
 
 [node name="NewGameTimer" type="Timer" parent="."]

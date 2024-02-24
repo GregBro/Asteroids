@@ -68,6 +68,10 @@ func build_asteroid() :
 		# Choose the velocity for the asteroid.
 		var velocity = Vector2(randf_range(level_data.AsteroidTopSpeed, 100.0), 0.0)
 		asteroid.linear_velocity = velocity.rotated(direction)
+		
+		var rotation_velocity = randf_range(-2.0, 2.0)
+		asteroid.angular_velocity = rotation_velocity
+		
 		asteroid.add_to_group("Asteroids")
 		get_parent().add_child(asteroid)
 		

@@ -21,7 +21,7 @@ var screen_wrap_offset = 70
 func _ready():
 	screensize = get_viewport_rect().size
 
-
+#Causes the asteroid to wrap around as it goes offscreen
 func _integrate_forces(state):
 	var xform = state.get_transform()
 	screensize = get_viewport_rect().size
@@ -46,8 +46,8 @@ func hit(laser_position) :
 	hit_points -= 1
 	#print("hit_points " + str(hit_points))
 	Globals.score =  Globals.score + 10 
-	var hit_position = laser_position #+ (laser_direction.normalized() * hit_offset) 
-	MsgQueue.send_asteroid_hit(hit_position)
+	#var hit_position = laser_position #+ (laser_direction.normalized() * hit_offset) 
+	MsgQueue.send_asteroid_hit(laser_position)
 	if hit_points <=0 : 
 		if asteroid_size != Globals.AsteroidSize.SMALL :
 			var this_position = position
@@ -59,21 +59,22 @@ func hit(laser_position) :
 		else  :
 			if randi()%100 < 90 :
 				var equip_drop = equipment_drop_scene.instantiate()
-				equip_drop.position = hit_position
+				equip_drop.position = laser_position
 				get_parent().call_deferred("add_child",equip_drop)
 			remove_from_group("Asteroids")
 			call_deferred("queue_free")
-			
-		var asteroids = get_tree().get_nodes_in_group("Asteroids")
-		Logger.debug("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
-		if asteroids.size() <=0 : 
-			var level_data = Globals.level_data
-			Logger.debug ("Current level is " + str(level_data)) 
-			var isLastLevel = level_data.IsLastLevel
-			Logger.debug("is last level : " + str(isLastLevel))
-			MsgQueue.send_score_change(1000)
-			if isLastLevel == false :
-				Globals.level += 1
-			else :
-				MsgQueue.send_rebuild_asteroids()
+		
+		if asteroid_size == Globals.AsteroidSize.SMALL :
+			var asteroids = get_tree().get_nodes_in_group("Asteroids")
+			Logger.debug("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
+			if asteroids.size() <=0 : 
+				var level_data = Globals.level_data
+				Logger.debug ("Current level is " + str(level_data)) 
+				var isLastLevel = level_data.IsLastLevel
+				Logger.debug("is last level : " + str(isLastLevel))
+				MsgQueue.send_score_change(1000)
+				if isLastLevel == false :
+					Globals.level += 1
+				else :
+					MsgQueue.send_rebuild_asteroids()
 

@@ -1,6 +1,5 @@
 extends Node2D
 
-
 enum difficulty_enum {NORMAL,HARD,SERIOUSLY,HELL}
 var difficulty : difficulty_enum  = difficulty_enum.NORMAL
 
@@ -11,7 +10,6 @@ var is_pauseable : bool = true
 var player_scene : PackedScene = preload("res://scenes/player.tscn")
 var laser_scene : PackedScene = preload("res://scenes/laser.tscn")
 var asteroid_hit_scene : PackedScene = preload("res://scenes/asteroid_hit_animation.tscn")
-
 
 var laser_sounds = ["res://Audio/151011__bubaproducer__laser-classic-shot-4.ogg",
 				"res://Audio/151012__bubaproducer__laser-classic-shot-3.ogg",
@@ -110,18 +108,20 @@ func _on_ready_timer_timeout():
 	$UI/MsgLabel.text = ""
 	$UI/MsgLabel.hide()
 	var player_array = get_tree().get_nodes_in_group("Player")
-	if player_array.size() == 0 :
-		build_player()
 	if Globals.game_state == Globals.game_state_enum.NEW_GAME :
+		if player_array.size() == 0 :
+			build_player()
 		Globals.game_state = Globals.game_state_enum.RUNNING
 		$AsteroidBuilder.buildScene()
 	if Globals.game_state == Globals.game_state_enum.LEVEL_CHANGE :
+		if player_array.size() == 0 :
+			build_player()
 		Globals.game_state = Globals.game_state_enum.RUNNING 
 		$AsteroidBuilder.rebuild_asteroids()
 
 
 func game_over() :
-	Globals.game_state = Globals.game_state_enum.NEW_GAME
+	Globals.game_state = Globals.game_state_enum.TITLE
 	$UI/MsgLabel.text = "Game Over"
 	$UI/MsgLabel.show()
 	$GameOverTimer.start()

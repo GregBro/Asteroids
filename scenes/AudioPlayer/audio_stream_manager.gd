@@ -1,6 +1,6 @@
 extends Node
 
-var num_players = 10
+@export var num_players = 14
 var bus = "master"
 
 var available = []  # The available players.
@@ -30,6 +30,6 @@ func _process(_delta):
 		available[0].stream = load(queue.pop_front())
 		available[0].play()
 		available.pop_front()
-	#GodotLogger.debug("Playing Sound")
-	#GodotLogger.debug("queue size : " + str(queue.size()))
-	#GodotLogger.debug("available size : " + str(available.size()))
+		Logger.debug("Playing Sound")
+		Logger.debug("queue size : " + str(queue.size()))
+		Logger.debug("available size : " + str(available.size()))
