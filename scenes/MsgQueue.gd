@@ -21,7 +21,7 @@ func send_weapon_heat() :
 func send_level_change() :
 	level_change.emit(Globals.level)
 
-func send_score_change(score) :
+func send_score_change() :
 	score_change.emit(Globals.score)
 
 func send_ships_change() :

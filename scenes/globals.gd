@@ -43,7 +43,7 @@ var score : int = score_starting_amount :
 		return score
 	set(value):
 		score = value
-		MsgQueue.send_score_change(score)
+		MsgQueue.send_score_change()
 
 
 var level_starting_point : int = 0

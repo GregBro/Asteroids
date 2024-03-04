@@ -72,7 +72,7 @@ func hit(laser_position) :
 				Logger.debug ("Current level is " + str(level_data)) 
 				var isLastLevel = level_data.IsLastLevel
 				Logger.debug("is last level : " + str(isLastLevel))
-				MsgQueue.send_score_change(1000)
+				Globals.score += 1000
 				if isLastLevel == false :
 					Globals.level += 1
 				else :

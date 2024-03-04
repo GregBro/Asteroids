@@ -86,13 +86,12 @@ func fire_laser(player_pos,player_direction):
 
 func asteroid_hit(asteroid_position) :
 	AudioStreamManager.play("res://Audio/ShortCannonBoom.ogg")
-	#$AudioStreamPlayer.play()
 	var asteroid_hit_instance = asteroid_hit_scene.instantiate()
 	asteroid_hit_instance.position = asteroid_position
 	asteroid_hit_instance.show()
 	asteroid_hit_instance.play()
 	add_child(asteroid_hit_instance)
-	MsgQueue.send_score_change(10)
+	Globals.score += 10
 
 
 func lose_ship() :
