@@ -96,6 +96,7 @@ func asteroid_hit(asteroid_position) :
 
 func lose_ship() :
 	if Globals.ships > 0 :
+		Globals.game_state = Globals.game_state_enum.LOST_SHIP
 		$UI/MsgLabel.text = "Ready"
 		$UI/MsgLabel.show()
 		$ReadyTimer.start()
@@ -112,6 +113,12 @@ func _on_ready_timer_timeout():
 			build_player()
 		Globals.game_state = Globals.game_state_enum.RUNNING
 		$AsteroidBuilder.buildScene()
+		
+	if Globals.game_state == Globals.game_state_enum.LOST_SHIP :
+		if player_array.size() == 0 :
+			build_player()
+		Globals.game_state = Globals.game_state_enum.RUNNING 
+		
 	if Globals.game_state == Globals.game_state_enum.LEVEL_CHANGE :
 		if player_array.size() == 0 :
 			build_player()
