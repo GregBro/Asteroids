@@ -64,17 +64,16 @@ func hit(laser_position) :
 			remove_from_group("Asteroids")
 			call_deferred("queue_free")
 		
-		if asteroid_size == Globals.AsteroidSize.SMALL :
+		#if asteroid_size == Globals.AsteroidSize.SMALL :
 			var asteroids = get_tree().get_nodes_in_group("Asteroids")
-			Logger.debug("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
+			#Logger.debug("In Asteroid Hit Asteroid count : " + str(asteroids.size()))
 			if asteroids.size() <=0 : 
 				var level_data = Globals.level_data
-				Logger.debug ("Current level is " + str(level_data)) 
+				#Logger.debug ("Current level is " + str(level_data)) 
 				var isLastLevel = level_data.IsLastLevel
-				Logger.debug("is last level : " + str(isLastLevel))
+				#Logger.debug("is last level : " + str(isLastLevel))
 				Globals.score += 1000
 				if isLastLevel == false :
 					Globals.level += 1
 				else :
 					MsgQueue.send_rebuild_asteroids()
-

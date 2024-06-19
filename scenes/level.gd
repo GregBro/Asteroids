@@ -19,7 +19,7 @@ var laser_sounds = ["res://Audio/151011__bubaproducer__laser-classic-shot-4.ogg"
 
 
 func _ready():
-	Logger.set_logger_level(Logger.LOG_LEVEL_ERROR)
+	#Logger.set_logger_level(Logger.LOG_LEVEL_ERROR)
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	MsgQueue.connect("level_change", level_change)
 	MsgQueue.connect("fire_laser", fire_laser)
@@ -32,6 +32,7 @@ func _ready():
 	$AsteroidBuilder.buildScene()
 	#$AudioStreamPlayer.stream = "res://Audio/ShortCannonBoom.ogg"
 	#print(InputMap.get_actions())
+	#MsgQueue.send_start_music()
 
 
 func _process(_delta):
@@ -49,16 +50,17 @@ func _process(_delta):
 
 
 func quit_game() :
+	MsgQueue.send_stop_music()
 	get_tree().quit()
 
 
-func level_change(level) :
-	Logger.debug("Got to level change")
-	Logger.debug("level is " + str(level))
+func level_change(_level) :
+	#Logger.debug("Got to level change")
+	#Logger.debug("level is " + str(level))
 	level_data = Globals.level_data
 	Globals.ships += level_data.ShipsAdded
 	Globals.game_state = Globals.game_state_enum.LEVEL_CHANGE
-	Logger.debug(str(level_data))
+	#Logger.debug(str(level_data))
 	$UI/MsgLabel.text = "Ready"
 	$UI/MsgLabel.show()
 	$ReadyTimer.start()

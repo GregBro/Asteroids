@@ -23,16 +23,16 @@ func rebuild_asteroids() :
 	level_data = Globals.level_data
 	current_asteroid_size_to_build = Globals.AsteroidSize.LARGE
 	asteroidCount = level_data.LargeAsteroidCount
-	Logger.debug("Inside asteroidBuilder rebuild_asteroids" )
-	Logger.debug(str(level_data))
+	#Logger.debug("Inside asteroidBuilder rebuild_asteroids" )
+	#Logger.debug(str(level_data))
 	$AsteroidSpawnTimer.wait_time = level_data.AsteroidSpawnTime
 	$AsteroidSpawnTimer.start()
 
 
 func buildScene() :
 	level_data = Globals.level_data
-	Logger.debug("Inside asteroidBuilder " )
-	Logger.debug(str(level_data))
+	#Logger.debug("Inside asteroidBuilder " )
+	#Logger.debug(str(level_data))
 	current_asteroid_size_to_build = Globals.AsteroidSize.LARGE
 	asteroidCount = level_data.LargeAsteroidCount
 	$AsteroidSpawnTimer.wait_time = level_data.AsteroidSpawnTime
@@ -92,14 +92,14 @@ func _on_asteroid_spawn_timer_timeout():
 
 
 func blow_up_all_asteroids() :
-	Logger.debug ("Got to blow_up_all_asteroids")
+	#Logger.debug ("Got to blow_up_all_asteroids")
 	if Globals.game_state == Globals.game_state_enum.GAME_OVER :
 		$AsteroidBlowupTimer.wait_time = 0.2
 	else :
 		$AsteroidBlowupTimer.wait_time = 0.5
 	$AsteroidSpawnTimer.stop()
 	var asteroid_array = get_tree().get_nodes_in_group("Asteroids")
-	Logger.debug ("Array size " + str(asteroid_array.size()))
+	#Logger.debug ("Array size " + str(asteroid_array.size()))
 	if(asteroid_array.size() > 0):
 		$AsteroidBlowupTimer.start()
 
@@ -150,5 +150,3 @@ func asteroid_breakup(asteroid_position, direction, size) :
 	
 	asteroid_1.show()
 	asteroid_2.show()
-
-

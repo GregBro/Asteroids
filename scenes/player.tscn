@@ -83,8 +83,7 @@ rotation = 1.5708
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_caj8t")
 animation = &"jet"
-frame = 1
-frame_progress = 0.684472
+frame_progress = 0.586197
 
 [node name="RotateCounterClockRearJet" type="AnimatedSprite2D" parent="."]
 visible = false

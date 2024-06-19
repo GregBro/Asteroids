@@ -11,6 +11,8 @@ signal rebuild_asteroids()
 signal level_change()
 signal start_game()
 signal weapon_heat()
+signal start_music()
+signal stop_music()
 
 func send_start_game() :
 	start_game.emit()
@@ -48,3 +50,8 @@ func send_lose_ship() :
 func send_rebuild_asteroids() :
 	rebuild_asteroids.emit()
 
+func send_start_music():
+	start_music.emit()
+
+func send_stop_music() :
+	stop_music.emit()

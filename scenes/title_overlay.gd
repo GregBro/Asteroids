@@ -62,10 +62,8 @@ func cleanup_overlay_start_game(difficulty) :
 
 
 func quit_game() :
-	Logger.debug("Quit Game")
+	#Logger.debug("Quit Game")
 	get_parent().quit_game()
 
 func reset_buttons() :
 	$VBoxContainer/NormalDifficultyButton.grab_focus()
-
-

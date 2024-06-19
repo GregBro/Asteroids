@@ -25,6 +25,7 @@ func _ready():
 	$ReverseJetRight.play()
 
 
+
 func _process(delta):
 	if Input.is_action_pressed("right") :
 		if angular_velocity < max_rotation :
@@ -100,7 +101,7 @@ func _on_laser_timer_timeout():
 
 
 func _on_body_entered(body):
-	Logger.debug("can_crash is " + str(can_crash))
+	#Logger.debug("can_crash is " + str(can_crash))
 	if can_crash && body.is_in_group("Asteroids"):
 		#Logger.debug("Ships " + str(Globals.ships))
 		can_crash = false

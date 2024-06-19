@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://buwwjqptgn2r7"]
+[gd_scene load_steps=11 format=3 uid="uid://buwwjqptgn2r7"]
 
 [ext_resource type="Texture2D" uid="uid://imarlerl1ow4" path="res://art/milky-way.jpg" id="1_pilqm"]
 [ext_resource type="Script" path="res://scenes/level.gd" id="1_s66s0"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dufjk11jaw5r7" path="res://scenes/ui.tscn" id="6_cbyla"]
 [ext_resource type="Texture2D" uid="uid://c00nj1r8sksr8" path="res://art/sizes.png" id="7_5lqpy"]
 [ext_resource type="PackedScene" uid="uid://l6026avc6brq" path="res://scenes/equipment_drop.tscn" id="8_0l3ky"]
+[ext_resource type="PackedScene" uid="uid://bab01idi6vpbw" path="res://Audio/music/audio_stream_player_2d.tscn" id="9_3a62k"]
 
 [sub_resource type="Curve2D" id="Curve2D_0s43a"]
 _data = {
@@ -67,6 +68,8 @@ position = Vector2(1347, 485)
 
 [node name="HellModeTImer" type="Timer" parent="."]
 wait_time = 20.0
+
+[node name="AudioStreamPlayer2D" parent="." instance=ExtResource("9_3a62k")]
 
 [connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
