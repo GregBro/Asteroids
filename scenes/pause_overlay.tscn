@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bpoopf31ie5rm"]
 
 [ext_resource type="FontFile" uid="uid://jil4hk24nacm" path="res://fonts/nasalization-rg.ttf" id="1_23rkc"]
-[ext_resource type="Script" path="res://scenes/pause_overlay.gd" id="1_hv7w7"]
+[ext_resource type="Script" uid="uid://km2k5w1gjjp1" path="res://scenes/pause_overlay.gd" id="1_hv7w7"]
 
 [node name="PauseOverlay" type="CanvasLayer"]
 process_mode = 3

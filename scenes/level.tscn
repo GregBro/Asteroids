@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://buwwjqptgn2r7"]
 
 [ext_resource type="Texture2D" uid="uid://imarlerl1ow4" path="res://art/milky-way.jpg" id="1_pilqm"]
-[ext_resource type="Script" path="res://scenes/level.gd" id="1_s66s0"]
+[ext_resource type="Script" uid="uid://iqig8rls28im" path="res://scenes/level.gd" id="1_s66s0"]
 [ext_resource type="PackedScene" uid="uid://cgfh1k04jcopm" path="res://scenes/asteroids/asteroid_builder.tscn" id="3_aaquf"]
 [ext_resource type="PackedScene" uid="uid://qpmvsjimoohg" path="res://scenes/title_overlay.tscn" id="4_pvxrm"]
 [ext_resource type="PackedScene" uid="uid://bpoopf31ie5rm" path="res://scenes/pause_overlay.tscn" id="5_y03no"]
@@ -20,7 +20,7 @@ point_count = 5
 process_mode = 3
 script = ExtResource("1_s66s0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 position = Vector2(952.5, 531.5)
 scale = Vector2(1.02969, 1.0213)
 texture = ExtResource("1_pilqm")
@@ -30,7 +30,7 @@ curve = SubResource("Curve2D_0s43a")
 
 [node name="AsteroidPathFollow2D" type="PathFollow2D" parent="AsteroidPath"]
 position = Vector2(-96, -67)
-rotation = -0.0120418
+rotation = -0.012041807
 
 [node name="AsteroidBuilder" parent="." instance=ExtResource("3_aaquf")]
 

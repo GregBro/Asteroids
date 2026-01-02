@@ -3,7 +3,7 @@
 [ext_resource type="AudioStream" uid="uid://fvpy7x8ly8d3" path="res://Audio/music/Blackest_Sea_120bpm_122s.wav" id="1_64vf8"]
 [ext_resource type="AudioStream" uid="uid://6c8cotebhf8m" path="res://Audio/music/Deep_Space_122bpm_125s.wav" id="2_fvrsj"]
 [ext_resource type="AudioStream" uid="uid://bt68ypqygm0d8" path="res://Audio/music/Star_Cradle_120bpm_121s.wav" id="3_ccedq"]
-[ext_resource type="Script" path="res://Audio/music/audio_stream_player_2d.gd" id="4_4t05r"]
+[ext_resource type="Script" uid="uid://dncv50udln5m0" path="res://Audio/music/audio_stream_player_2d.gd" id="4_4t05r"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_340hk"]
 shuffle = true

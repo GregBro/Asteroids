@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://qpmvsjimoohg"]
 
-[ext_resource type="Script" path="res://scenes/title_overlay.gd" id="1_7xte5"]
+[ext_resource type="Script" uid="uid://du7wu4ido6umo" path="res://scenes/title_overlay.gd" id="1_7xte5"]
 [ext_resource type="FontFile" uid="uid://jil4hk24nacm" path="res://fonts/nasalization-rg.ttf" id="2_62b2h"]
 [ext_resource type="FontFile" uid="uid://ds4sgve7q3vwl" path="res://fonts/UnutterableItalic-jE2E9.ttf" id="3_mwtl3"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bh3a25v6audft"]
 
 [ext_resource type="Texture2D" uid="uid://cgddjqrbqhki2" path="res://art/smallorange.png" id="1_k2dbs"]
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_rwrkc"]
+[ext_resource type="Script" uid="uid://dgcps763250uf" path="res://scenes/player.gd" id="1_rwrkc"]
 [ext_resource type="Texture2D" uid="uid://cb1tgnaoac8b" path="res://art/jet_blast.png" id="3_k1awq"]
 [ext_resource type="Texture2D" uid="uid://dcx7pdhb4x5ii" path="res://art/jet_blast2.png" id="4_epva1"]
 [ext_resource type="Texture2D" uid="uid://b50uwug65df4s" path="res://art/jet_blast3.png" id="5_nrtxm"]

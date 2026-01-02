@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://l6026avc6brq"]
 
 [ext_resource type="Texture2D" uid="uid://b2owj8d80wc0g" path="res://art/Heart2_32x32.png" id="1_e4s80"]
-[ext_resource type="Script" path="res://scenes/equipment_drop.gd" id="1_lbw12"]
+[ext_resource type="Script" uid="uid://qc23vh5ar4ec" path="res://scenes/equipment_drop.gd" id="1_lbw12"]
 [ext_resource type="Texture2D" uid="uid://dfu6npnb0i555" path="res://art/tripleLaser.png" id="2_u1wy3"]
 [ext_resource type="Texture2D" uid="uid://1ubldd4a82al" path="res://art/shipEquipDrop.png" id="3_3er7c"]
 
