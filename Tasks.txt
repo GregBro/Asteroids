@@ -3,14 +3,13 @@ Bugs:
 States:
 		
 
-We could have a hell mode which never stops.
+We could have a hell mode which never stops. - DONE
 
 Add quit and pause menu - would be nice to have soon - DONE
-	BE sure to hide the MsgLabel when pause is up.
+	BE sure to hide the MsgLabel when pause is up. - DONE
 
 
 Add weapon upgrades
-health drops
+health drops - DONE
 level configuration
 overheating on lasers - Done
-
